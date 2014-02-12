@@ -18,6 +18,8 @@ public class BestTimeToBuyAndSellStockIII {
 	
 	public static void main(String[] args){
 		
+		System.out.println("This is a Best Time to Buy and Sell Stock program.");
+		System.out.println("Please input how many days you will count:");
 		//1st, input the Length of the array;
 		Scanner input = new Scanner(System.in);
 		int Num = input.nextInt();
@@ -63,14 +65,15 @@ public class BestTimeToBuyAndSellStockIII {
 		} // end if condition;
 		
 		int minL = prices[0];
-		int maxR = prices[prices.length - 1];
+		int maxR = prices[Len - 1];
 		
 		//dayProfitLeft and dayProfitRight
-		int[] dpL = new int[prices.length]; // the profit between day 0 and day i;
-		int[] dpR = new int[prices.length]; // the profit between day i and day Len-1;
+		int[] dpL = new int[Len]; // the profit between day 0 and day i;
+		int[] dpR = new int[Len]; // the profit between day i and day Len-1;
 		
 		int max = 0;
 		
+		//calculate the max profit from day[0] to day[i];
 		for(int i = 1; i < Len; i++){
 			if(prices[i] < minL)
 				minL = prices[i];
@@ -78,6 +81,7 @@ public class BestTimeToBuyAndSellStockIII {
 			dpL[i] = Math.max(dpL[i - 1], prices[i] - minL);
 		} // end for i<price.length loop;
 		
+		//calculate the max profit from day[i] to day[Len];
 		for(int i = Len - 2; i > -1; i--){
 			if(prices[i] > maxR) 
 				maxR = prices[i];
@@ -85,8 +89,12 @@ public class BestTimeToBuyAndSellStockIII {
 			dpR[i] = Math.max(dpR[i + 1], maxR - prices[i]);
 		} // end for i>=0 loop;
 		
+		System.out.println("Printout the two max profit arraies: ");
+		printArray(dpL);
+		printArray(dpR);
+		
 		for(int i = 0; i < Len; i++){
-			System.out.print(" (" + dpL[i] +", " + dpR[i] +")");
+			//System.out.print(" (" + dpL[i] +", " + dpR[i] +")");
 			max = Math.max(max, dpL[i] + dpR[i]);
 		} // end for i<Len loop; got the max profit of two sections: day[0-i] and day[i-Len];
 		
@@ -95,6 +103,22 @@ public class BestTimeToBuyAndSellStockIII {
 		return max;
 		
 	} // end maxProfit() method;
+
+	private static void printArray(int[] array) {
+		// TODO Printout an array[]
+		int Len = array.length;
+		for(int i=0; i<Len; i++){
+			
+			if(array[i] < 9){
+				System.out.print("  " + array[i]);
+			} else if(array[i] <99){
+				
+				System.out.print(" " + array[i]);
+			}
+		}
+		
+		System.out.println();
+	} // end printArray() method;
 	
 	
 } // end everything in BestTimetoBuyandSellStock class;
