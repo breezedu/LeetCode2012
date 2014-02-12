@@ -70,20 +70,20 @@ public class BestTimeToBuyAndSellStockIII {
 		} // end for i<price.length loop;
 		
 		for(int i = prices.length - 2; i > -1; i--){
-            if(prices[i] > maxRL) 
-            	maxRL = prices[i];
-            
-            dpRL[i] = Math.max(dpRL[i + 1], maxRL - prices[i]);
-        }
-        
-        for(int i = 0; i < prices.length; i++){
-        	
-        	System.out.print(" (" + dpLR[i] +", " + dpRL[i] +")");
-            max = Math.max(max, dpLR[i] + dpRL[i]);
-        }
-        System.out.println();
-        
-        return max;
+			if(prices[i] > maxRL) 
+				maxRL = prices[i];
+			
+			dpRL[i] = Math.max(dpRL[i + 1], maxRL - prices[i]);
+		} // end for i>=0 loop;
+		
+		for(int i = 0; i < prices.length; i++){
+			System.out.print(" (" + dpLR[i] +", " + dpRL[i] +")");
+			max = Math.max(max, dpLR[i] + dpRL[i]);
+		}
+		
+		System.out.println();
+		
+		return max;
 		
 	} // end maxProfit() method;
 	
