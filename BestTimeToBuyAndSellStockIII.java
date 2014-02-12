@@ -47,6 +47,14 @@ public class BestTimeToBuyAndSellStockIII {
 		return prices;
 	} // end buildArray() loop;
 
+	/************
+	 * Break the prices[] array into '2' sections;
+	 * use the bestTimeSellBuy-i method, we can calculate the maximum maxL[i] profit from day[0] to day[i];
+	 * then use similar method to calculate the maximum profit maxR[i] from day[i+1] to day[Len-1];
+	 * At the last loop, 
+	 * @param prices
+	 * @return
+	 */
 	private static int maxProfit(int[] prices) {
 		// TODO To calculate the max profit
 		int Len = prices.length;
@@ -54,32 +62,33 @@ public class BestTimeToBuyAndSellStockIII {
 			return 0;
 		} // end if condition;
 		
-		int minLR = prices[0];
-		int maxRL = prices[prices.length - 1];
+		int minL = prices[0];
+		int maxR = prices[prices.length - 1];
 		
-		int[] dpLR = new int[prices.length];
-		int[] dpRL = new int[prices.length];
+		//dayProfitLeft and dayProfitRight
+		int[] dpL = new int[prices.length]; // the profit between day 0 and day i;
+		int[] dpR = new int[prices.length]; // the profit between day i and day Len-1;
 		
 		int max = 0;
 		
-		for(int i = 1; i < prices.length; i++){
-			if(prices[i] < minLR)
-				minLR = prices[i];
+		for(int i = 1; i < Len; i++){
+			if(prices[i] < minL)
+				minL = prices[i];
 			
-			dpLR[i] = Math.max(dpLR[i - 1], prices[i] - minLR);
+			dpL[i] = Math.max(dpL[i - 1], prices[i] - minL);
 		} // end for i<price.length loop;
 		
-		for(int i = prices.length - 2; i > -1; i--){
-			if(prices[i] > maxRL) 
-				maxRL = prices[i];
+		for(int i = Len - 2; i > -1; i--){
+			if(prices[i] > maxR) 
+				maxR = prices[i];
 			
-			dpRL[i] = Math.max(dpRL[i + 1], maxRL - prices[i]);
+			dpR[i] = Math.max(dpR[i + 1], maxR - prices[i]);
 		} // end for i>=0 loop;
 		
-		for(int i = 0; i < prices.length; i++){
-			System.out.print(" (" + dpLR[i] +", " + dpRL[i] +")");
-			max = Math.max(max, dpLR[i] + dpRL[i]);
-		}
+		for(int i = 0; i < Len; i++){
+			System.out.print(" (" + dpL[i] +", " + dpR[i] +")");
+			max = Math.max(max, dpL[i] + dpR[i]);
+		} // end for i<Len loop; got the max profit of two sections: day[0-i] and day[i-Len];
 		
 		System.out.println();
 		
