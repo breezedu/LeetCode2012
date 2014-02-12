@@ -1,0 +1,20 @@
+This is a Triangle problem from LeetCode.
+Please input how many rows in the triangle:
+14
+Printout the original triangle: (size 14) 
+                            60
+                          64  21
+                         2  83  34
+                      91  68  50  66
+                     1  33  84  86   2
+                   3  95  92  58  23   8
+                97  37  41  40  42  47  40
+              89  95  28  15  83  34  44  71
+            63  14  46  19  86  13  35  53   4
+          88  13  60  16  39  87   7  69  63  98
+        98  80  75  60  71  64  14  97  29  64  20
+      52  65  21   6  60  31  90  96  75  69  47  16
+    26  85  66  56  90  79  88   1  61  24  73  79  84
+  63  22  97  24  79  30  83  42  48  73  68  11  28  25
+
+The minimum sum from top to bottom is: 439
