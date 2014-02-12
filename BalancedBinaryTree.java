@@ -58,14 +58,17 @@ public class BalancedBinaryTree {
 		// TODO To check if a tree is Balanced or Not
 		if(root == null){
 			return true;
-		}
+		} // if the tree is empty, return true;
+		
 		if(!isBalanced(root.left)){
 			return false;
-		}
+		} // check left branch;
+		
 		if(!isBalanced(root.right)){
 			return false;
-		}
+		} // check right branch;
 		
+		// check root itself;		
 		int heightL = getHeight(root.left);
 		int heightR = getHeight(root.right);
 		
@@ -78,15 +81,17 @@ public class BalancedBinaryTree {
 		return true;
 	} // end isBalanced() method;
 
+	/********
+	 * get the height of a tree;
+	 * @param node
+	 * @return
+	 */
 	private static int getHeight(TreeNode node) {
 		// TODO get the height of a tree/branch
 		if(node == null){
 			return 0;
 			
-		} else if (node.left==null &&node.right==null){
-			
-			return 1;
-		}
+		} 
 				
 		return Math.max(getHeight(node.left)+1, getHeight(node.right)+1);
 		
