@@ -54,11 +54,13 @@ public class BestTimeToBuyAndSellStock {
 		int max = 0; // this is the worst condition, buy and sell the stock at the same day;
 		int min = prices[0];
 		
+		//This is also an algo to calculate max profit from day[0] to day[Len-1];
 		for(int i=0; i<Len; i++){
 			
 			max = Math.max(max, prices[i] - min);
-			min = Math.min(min, prices[i]); // the minimum value will update everyday, 
-										// then the max profit will update accordingly;
+			min = Math.min(min, prices[i]); 
+			// the minimum value will update everyday, 
+			// then the max profit will update accordingly;
 					
 		} // end for i<Len loop;
 		
