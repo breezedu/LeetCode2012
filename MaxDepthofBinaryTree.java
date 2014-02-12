@@ -25,7 +25,7 @@ public class MaxDepthofBinaryTree {
 	
 	public static void main(String[] args){
 		
-		System.out.println("This is a BalancedBinaryTree program.");
+		System.out.println("This is a MaxDepthofBinaryTree program.");
 		System.out.println("Please indicate how many nodes in the tree:");
 		
 		//1st, generate an array[];
