@@ -1,0 +1,15 @@
+This is a Path Sum program.
+Please indicate how many nodes in the tree:
+18
+Please input the sum to be checked: sum=
+11
+Printout the original array:
+ 3 3 2 3 1 1 3 3 2 4 4 2 4 1 3 3 2 4
+The tree has been built, root=3, leetCode2012.TreeNode@3d4eac69, leetCode2012.TreeNode@42a57993
+one pathSum: 8
+one pathSum: 11
+one pathSum: 25
+one pathSum: 31
+
+We got 1 path-sums.
+ 3 2 2 2 2
