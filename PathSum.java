@@ -70,7 +70,8 @@ public class PathSum {
 
 	/**********
 	 * check if there's a root to leaf path in the tree with a total value equal to sum;
-	 * 
+	 * create an arrayList to store all path-sums;
+	 * at the end check each integer in the arrayList, to see is there's anyone match the sum;
 	 * @param root
 	 * @param sum
 	 * @return
@@ -83,7 +84,7 @@ public class PathSum {
 		
 		ArrayList<Integer> pathList = new ArrayList<Integer>();
 		int pathSum = 0;
-		checkPathSum(root, pathList, pathSum);
+		checkPathSum(root, pathList, pathSum); //call checkPathSum() method to add path-sums to arrayList
 		
 		for(int e:pathList){
 			System.out.print(" " + e+".");
@@ -93,6 +94,19 @@ public class PathSum {
 		return false;
 	} // end hasPathSum() method;
 
+	/***********
+	 * add path-sums to an arrayList
+	 * return condition:
+	 * when the root passed to the method is a leaf (node.left==null && node.right==null);
+	 * sum the passed pathSum and the last node.val together, then add the result to arrayList;
+	 * 
+	 * otherwise, pathSum=pathSum+node.val; pass the new pathSum with node.left/node.right 
+	 * to a new checkPathsum() call;
+	 * 
+	 * @param root
+	 * @param pathList
+	 * @param pathSum
+	 */
 	private static void checkPathSum(TreeNode root, ArrayList<Integer> pathList, int pathSum) {
 		// TODO Add all path values to an arrayList
 		if(root.left==null && root.right==null){
