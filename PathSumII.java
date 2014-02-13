@@ -62,23 +62,31 @@ public class PathSumII {
 		ArrayList<ArrayList<Integer>> sumList =pathSum(root, sum);
 		
 		if(sumList.size() == 0){
-			System.out.println("There's no such path sum equal to sum.");
+			System.out.println("\nThere's no such path sum equal to sum.");
+			
+		} else {
+			System.out.println("\nWe got " + sumList.size() +" path-sums.");
+			printALofAL(sumList);
+			
 		}
-		printALofAL(sumList);
 		
 		
 	} // end main();
 
+	/***********
+	 * Printout the arrayLists by calling printArrayList() method;
+	 * @param sumList
+	 */
 	private static void printALofAL(ArrayList<ArrayList<Integer>> sumList) {
 		// TODO printout ArrayList of ArrayList
-		if(sumList == null){
-			System.out.println("The arrayList is empty.");
+		if(sumList == null || sumList.size()==0){
+			System.out.println("\nThe arrayList is empty.");
 			return;
 		}
 		
 		for(ArrayList<Integer> L:sumList){
 			printArrayList(L);
-		}
+		} // all arrayLists in sumList have been printed;
 		
 	}// end printALofAL() method;
 
@@ -91,7 +99,12 @@ public class PathSumII {
 		
 	}// end printArrayList() method;
 
-	
+	/*****************
+	 * create an arrayList to store all path-sums equal to sum;
+	 * @param root
+	 * @param sum
+	 * @return
+	 */
 	private static ArrayList<ArrayList<Integer>> pathSum(TreeNode root, int sum) {
 		// TODO check if there's any path-sum equal to sum, if so add the whold path to an arrayList
 		ArrayList<ArrayList<Integer>> retList = new ArrayList<ArrayList<Integer>>();
@@ -101,17 +114,32 @@ public class PathSumII {
 		
 		ArrayList<Integer> pathList = new ArrayList<Integer>();
 		int pathSum = 0;
-		checkPathSum(root,sum, pathSum, pathList, retList);
 		
+		//call checkPathSum() method to check if a path's total is equal to sum
+		//if so, add that path to the retList;
+		checkPathSum(root,sum, pathSum, pathList, retList);
 		
 		return retList;
 	}
 
+	/**********************
+	 * pathSum to store the path total from root to node n;
+	 * pathList to store all nodes from root to node n;
+	 * 
+	 * if node n has no leaf, this is one end, 
+	 * if pathSum equals to sum, add pathList to retList; 
+	 * @param root
+	 * @param sum
+	 * @param pathSum
+	 * @param pathList
+	 * @param retList
+	 */
 	private static void checkPathSum(TreeNode root, int sum, int pathSum, ArrayList<Integer> pathList, ArrayList<ArrayList<Integer>> retList) {
 		// TODO Check if there's any path-sum equal to sum
 		if(root.left==null && root.right==null){
 			pathSum += root.val;
 			pathList.add(root.val);
+			System.out.println("one pathSum: " + pathSum);
 			
 			if(pathSum == sum){
 				retList.add(pathList);
@@ -205,7 +233,7 @@ public class PathSumII {
 		int[] array = new int[num];
 		
 		for(int i=0; i<num; i++){
-			array[i] = (int)(Math.random()*10);
+			array[i] = (int)(Math.random()*4 +1);
 		}
 		
 		return array;
