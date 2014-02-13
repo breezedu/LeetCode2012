@@ -54,7 +54,7 @@ public class PathSum {
 		TreeNode root = buildTree(array);
 		System.out.println("The tree has been built, root=" + root.val +", " +root.left +", " + root.right);
 		
-		//3rd, check if the tree is balanced in height
+		//3rd, check if there's any path-sum equal to sum
 		boolean sumM =hasPathSum(root, sum);
 		
 		if(sumM){
