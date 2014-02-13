@@ -2,6 +2,8 @@ package leetCode2012;
 
 import java.util.Scanner;
 
+import leetCode.Stopwatch;
+
 /**********
  * Given an array where elements are sorted in ascending order, 
  * convert it to a height balanced BST.
@@ -31,11 +33,14 @@ public class ConvertSortedArraytoBinarySearchTree {
 		System.out.println("The original array has been built:");
 		printArray(array);
 		
+		Stopwatch timmer = new Stopwatch();
+		
 		//2nd, put the array into a BST
 		TreeNode root = sortedArrayToBST(array);
 		System.out.println("The tree has been built.");
 		System.out.println("The root is: "+root.val);
 		
+		System.out.println("The time cost was: " +timmer.elapsedTime()+" seconds.");
 	} //end main();
 
 	/***********
