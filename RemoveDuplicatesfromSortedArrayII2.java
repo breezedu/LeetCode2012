@@ -47,6 +47,8 @@ public class RemoveDuplicatesfromSortedArrayII2 {
 	 * to check how many (x) duplicated nodes in the array, because the array is sorted
 	 * the index pointer could just x nodes directly to a 'fresh' node
 	 * if there's no duplicate of array[m], then add the array[m] to the new array, count++
+	 * if there are x (x>2) duplicates of array[m], just add two of them to the new array, 
+	 * then 'jump' x steps for original Index;
 	 * 
 	 * @param array
 	 * @return
