@@ -93,10 +93,11 @@ public class ConstructBinaryTreeonInPreOrders {
 			return null;
 		}
 		
-		int newIndex = inArray.length;//this is the worst condition;
-		
+		int indexOfinOrder = inArray.length;//this is the worst condition;
+		int newIndex = 0;
 		for(int i=indexFront; i<=indexEnd; i++){
-			if(preTable.get(inArray[i]) < newIndex){
+			if(preTable.get(inArray[i]) < indexOfinOrder){
+				indexOfinOrder = preTable.get(inArray[i]);
 				newIndex = i;
 			}
 		}
@@ -108,17 +109,6 @@ public class ConstructBinaryTreeonInPreOrders {
 		
 		return node;
 	}
-
-	private static int getIndex(int m, int[] inArray){
-		int Len = inArray.length;
-		int Index = 0;
-		for(int i=0; i<Len; i++){
-			if(m == inArray[i])
-				Index = i;
-		}
-		
-		return Index;
-	}//end getIndex() method;
 
 	private static ArrayList<Integer> preorderTraversal(TreeNode root) {
 		// TODO preOrder traversal of a tree
