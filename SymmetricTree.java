@@ -23,6 +23,7 @@ public class SymmetricTree {
 		System.out.println("This is a SymmetricTree program.");
 		
 		//1st, build a binary tree;
+		System.out.println("Please input how many nodes in the tree/array:");
 		Scanner input = new Scanner(System.in);
 		int num = input.nextInt();
 		input.close();
@@ -35,6 +36,7 @@ public class SymmetricTree {
 		TreeNode root = buildTree(array);
 		System.out.println("The binary tree has been build:");
 		printTree(root);
+		System.out.println();
 		
 		
 		//3rd, check if the tree is symmetric or not
@@ -114,42 +116,50 @@ public class SymmetricTree {
 		
 	}//end printTree() method
 
+	/************
+	 * in this program, I just put the middle element of the array to the root;
+	 * then put the middle of front half to the root.left, the mid-of-after half to the root.right;
+	 * so, to get a symmetric tree, we need 1, 3 or 7 nodes for the whole tree;
+	 * @param array
+	 * @return
+	 */
 	private static TreeNode buildTree(int[] array) {
 		// TODO Auto-generated method stub
 		if(array==null || array.length==0){
 			return null;
 		}
-		TreeNode root = new TreeNode(array[0]);
-		for(int i=1; i<array.length; i++){
-			addNode(root, array[i]);
-		}
 		
+		int Len = array.length;
+		TreeNode root = new TreeNode(array[Len/2]);
 		
+		root.left = addArray2Tree(array, 0, Len/2-1, root.left);
+		root.right = addArray2Tree(array, Len/2+1, Len-1, root.right);
+				
 		return root;
 	}//end buildTree() method;
 
-	private static void addNode(TreeNode root, int m) {
-		// TODO add one more node to a tree root
+	private static TreeNode addArray2Tree(int[] array, int begin, int end, TreeNode node) {
+		// TODO add the middle element of the array to the node;
+		if(end==begin){
+			node = new TreeNode(array[begin]);
+			return node;
+		}
 		
-		if(root==null){
-			root = new TreeNode(m);
+		int mid = (end+begin+1)/2;
+		System.out.print(" "+mid);
 		
-		} else if(m < root.val && root.left==null){
-			root.left = new TreeNode(m);
-			
-		} else if(m <root.val && root.left!=null){
-			addNode(root.left, m);
-						
-		} else if(m >= root.val && root.right==null){
-			root.right = new TreeNode(m);
-			
-		} else if(m >= root.val && root.right!=null){
-			addNode(root.right, m);
-			
-		} //end if-else conditions;
+		node = new TreeNode(array[mid]);
 		
-	
-	} // end addNode() method;
+		if(mid>begin){
+			node.left = addArray2Tree(array, begin, mid-1, node.left);
+		}
+		
+		if(mid<end){
+			node.right = addArray2Tree(array, mid+1, end, node.right);
+		}
+		
+		return node;
+	}//end addArray2Tree() method;
 
 	private static void printArray(int[] array) {
 		// TODO Printout each elementry of an array
