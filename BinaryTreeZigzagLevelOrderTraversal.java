@@ -32,7 +32,7 @@ public class BinaryTreeZigzagLevelOrderTraversal {
 	
 	public static void main(String[] args){
 		
-		System.out.println("This is Binary Tree Level Order Traversal program.");
+		System.out.println("This is Binary Tree Zigzag Level Order Traversal program.");
 		
 		//1st, build an array of random numbers;
 		System.out.println("Please input how many elements in the Tree:");
