@@ -64,7 +64,7 @@ public class ReverseLinkedListII {
 		
 		
 		ListNode retHead = new ListNode(0);
-		retHead.next = head;
+		retHead.next = head; 				//the head of 1st list;
 		
 		int count = n-m;
 		
@@ -72,7 +72,7 @@ public class ReverseLinkedListII {
 		for(int i=0; i<m-1; i++){
 			oriP = oriP.next;
 		}
-		ListNode tempHead = oriP.next;
+		ListNode tempHead = oriP.next;		//the head of 2nd list;
 		
 		ListNode p1 = tempHead;
 		ListNode tempOri = null;
@@ -92,12 +92,12 @@ public class ReverseLinkedListII {
 			
 			count--;
 			
-		}//end while loop;
+		}//end while loop, after this loop, p1.next is the head of 3rd list;
 		
 		tempHead.next = p1.next;
-		p1.next = tempOri; //let the last node in the original list point to the head of newly built list; 
-						
-		//the nodes between indices m and n were reversed;
+		p1.next = tempOri; //the nodes between indices m and n were reversed;
+		
+		//let the last node in the 1st list point to the head of newly 2nd list;
 		oriP.next = p1;
 		
 		return retHead.next;
