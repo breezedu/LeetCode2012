@@ -9,7 +9,7 @@ import java.util.Scanner;
  * re-construct the binary tree
  * 
  * @author Frog
- *
+ * With hashTable, it does not work when there's duplicates; 
  */
 public class ConstructBinaryTreeonInPreOrdershash {
 
@@ -31,8 +31,8 @@ public class ConstructBinaryTreeonInPreOrdershash {
 		//3rd, In-Order-Traversal
 		ArrayList<Integer> inOrder = new ArrayList<Integer>();
 		inOrder = inorderTraversal(root);
-		System.out.println("after the inOrderTraversal:");
-		printArrayList(inOrder);
+	//	System.out.println("after the inOrderTraversal:");
+	//	printArrayList(inOrder);
 		
 		int numIN = inOrder.size();
 		int[] inArray = new int[numIN];
@@ -58,8 +58,8 @@ public class ConstructBinaryTreeonInPreOrdershash {
 			preArray[i] = preOrder.get(i);
 			
 		}
-		System.out.println("Printout the preOrder Array[]:");
-		printArray(preArray);
+	//	System.out.println("Printout the preOrder Array[]:");
+	//	printArray(preArray);
 		
 		//5th, re-construct the original binary tree
 		TreeNode oriRoot = buildOriginalTree(inArray, preArray);
