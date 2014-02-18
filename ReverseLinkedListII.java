@@ -5,8 +5,9 @@ import java.util.Scanner;
 /**************
  * Reverse a linked list from position m to n. Do it in-place and in one-pass.
  * 
- * For example:
- * Given 1->2->3->4->5->NULL,
+ * For example: 
+ * Given 1->2->3->4->5->NULL, m = 2 and n = 4, 
+ * return 1->4->3->2->5->NULL.
  * 
  * @author Frog
  *
@@ -40,10 +41,28 @@ public class ReverseLinkedListII {
 		
 	}//end main();
 
+	/***************
+	 * break the original list into 3 lists;
+	 * the 1st list are nodes before m, the 3rd list are nodes after m;
+	 * just reverse the 2nd list with the same method as ReverseLinkList.java;
+	 * then link all three lists together;
+	 * 
+	 * ONE trick here is, if m==1, then the 1st list should be null. 
+	 * but we can not add an empty list before the 2nd list; so we add another node 
+	 * to the original list, thus we will have at least one node in the new 1st list;
+	 * if the 3rd list is empty, then it is OK to let the end of 2nd list point to another null
+	 * so, we do not have to add another node to the very end of the original list;
+	 * @param head
+	 * @param m
+	 * @param n
+	 * @return
+	 */
 	private static ListNode reverseListBetween(ListNode head, int m, int n) {
 		
 		// TODO reverse the list between m and n indices; 
 		if(head==null || head.next==null ||m==n) return head;
+		
+		
 		ListNode retHead = new ListNode(0);
 		retHead.next = head;
 		
