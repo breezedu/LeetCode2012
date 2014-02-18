@@ -7,6 +7,7 @@ import java.util.Scanner;
  * 
  * For example:
  * Given 1->2->3->4->5->NULL,
+ * return 5->4->3->2->1->NULL;
  * 
  * @author Frog
  *
@@ -34,6 +35,24 @@ public class ReverseLinkedList {
 		
 	}//end main();
 
+	/***************
+	 * use a pair of pointers: p1=head and p2=p1.next;
+	 * create an empty list newList=null;
+	 * at the very beginning, break p1 from original list, let p1.next link to the new list;
+	 * thus, we got a newList with only 1 node of head and head.next = null;
+	 * 
+	 * let p1 point to p2, and the p2=p1.next;
+	 * break p1 from the original list; 
+	 * let p1.next point to the head of the new list: p1.next p1->head;
+	 * and let p1 point to p2, and p2=p2.next;
+	 * 
+	 * as the traversal goes on, the p1 will reach the last node of original list;
+	 * let p1.next point to the head of the new list; END of traversal :)
+	 * return p1 as the head of new list;
+	 * 
+	 * @param head
+	 * @return
+	 */
 	private static ListNode reverseList(ListNode head) {
 		// TODO reverse the list
 		if(head==null || head.next==null) return head;
