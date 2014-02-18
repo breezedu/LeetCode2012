@@ -1,7 +1,6 @@
 package leetCode2012;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.Scanner;
 
 /********************
@@ -31,23 +30,24 @@ public class ConstructBinaryTreeonInPreOrders {
 		//3rd, In-Order-Traversal
 		ArrayList<Integer> inOrder = new ArrayList<Integer>();
 		inOrder = inorderTraversal(root);
+		System.out.println("after the inOrderTraversal:");
+		printArrayList(inOrder);
+		
 		int numIN = inOrder.size();
 		int[] inArray = new int[numIN];
 		for(int i=0; i<numIN; i++){
 			inArray[i] = inOrder.get(i);
 		}
 		//3.5 check inArray[] 
-		System.out.print("Printout the inOrder Array[]:");
-		printArray(inArray);
+	//	System.out.println("Printout the inOrder Array[]:");
+	//	printArray(inArray);
 			
-	//	System.out.println("after the inOrderTraversal:");
-	//	printArrayList(inOrder);
-		
+				
 		//4th, pre-Order-Traversal;
 		ArrayList<Integer> preOrder = new ArrayList<Integer>();
 		preOrder = preorderTraversal(root);	
 	
-		//	System.out.println("after te preOrderTraversal:");
+		System.out.println("after the preOrderTraversal:");
 	//	printArrayList(preOrder);
 		
 		int numPre = preOrder.size();
@@ -56,8 +56,9 @@ public class ConstructBinaryTreeonInPreOrders {
 			preArray[i] = preOrder.get(i);
 			
 		}
-		System.out.print("Printout the preOrder Array:");
+	//	System.out.println("Printout the preOrder Array[]:");
 		printArray(preArray);
+		
 		
 		//5th, re-construct the original binary tree
 		TreeNode oriRoot = buildOriginalTree(inArray, preArray);
@@ -70,70 +71,65 @@ public class ConstructBinaryTreeonInPreOrders {
 		if(inArray==null ||preArray==null){
 			return null;
 		}
-		Hashtable<Integer, Integer> preTable = new Hashtable<Integer, Integer>();
-		Hashtable<Integer, Integer> inTable = new Hashtable<Integer, Integer>();
-		for(int i=0; i<preArray.length; i++){
-			preTable.put(preArray[i], i);
-			inTable.put(inArray[i], i);
-		}
 		
+		int Len = inArray.length;
 		
-		TreeNode root = new TreeNode(preArray[0]);
-		int index = inTable.get(preArray[0]); //hashCode()getIndex(preArray[0], inArray);
-		
-		root.left = buildBranch(root.left, inArray, 0, index-1, preTable, inTable);
-		root.right = buildBranch(root.right, inArray, index+1, inArray.length-1, preTable, inTable);
+		//buildNodes(preArray, inArray, startofPreArray, endofpreArray, startofinArray, endofinArray);
+		TreeNode root = buildNode(preArray, inArray, 0, Len-1, 0, Len-1);
 		
 		return root;
-	}//end buildOriginalTree() method;
+	}//end buildOriginalTree() method;b
 	
-	private static TreeNode buildBranch(TreeNode node, int[] inArray, int indexFront, int indexEnd, Hashtable<Integer, Integer> preTable, Hashtable<Integer, Integer> inTable) {
+	private static TreeNode buildNode(int[] preArray, int[] inArray, int preStart, int preEnd, int inStart, int inEnd) {
 		// TODO Auto-generated method stub
-		if(indexEnd < indexFront){
+		if(preStart>preEnd || inStart>inEnd){
 			return null;
 		}
 		
-		int indexOfinOrder = inArray.length;//this is the worst condition;
-		int newIndex = 0;
-		for(int i=indexFront; i<=indexEnd; i++){
-			if(preTable.get(inArray[i]) < indexOfinOrder){
-				indexOfinOrder = preTable.get(inArray[i]);
-				newIndex = i;
+	//	System.out.println("start= " + preStart +", end= "+preEnd +" preArray[]" + preArray[preStart]);
+		
+		TreeNode root = new TreeNode(preArray[preStart]);
+		
+		int step = 0; //to find the index of preArray[0] in inArray[]
+			//this is also the endIndex of new preArray first half;
+		for(int i= inStart; i<=inEnd; i++){
+			if(inArray[i] == preArray[preStart]){
+				break;
 			}
-		}
+			
+			step++;
+		}//end for i<=inEnd loop;
 		
-		node = new TreeNode(inArray[newIndex]);
+		root.left = buildNode(preArray, inArray, preStart+1, preStart+step, inStart, inStart+step-1);
+		root.right = buildNode(preArray, inArray, preStart+step+1, preEnd, inStart+step+1, inEnd);
 		
-		node.left = buildBranch(node.left, inArray, indexFront, newIndex-1, preTable, inTable);
-		node.right = buildBranch(node.right, inArray, newIndex+1, indexEnd, preTable, inTable);
-		
-		return node;
-	}
+		return root;
+	}// end buildNode() method;
 
 	private static ArrayList<Integer> preorderTraversal(TreeNode root) {
-		// TODO preOrder traversal of a tree
-		if(root == null){
-			return null;
-		}
+		// TODO preOrder traversal of a tree add each node to an AL;
+		
 		ArrayList<Integer> preOrder = new ArrayList<Integer>();
 		
-		preOrderTraversal(preOrder, root);
+		preOrder(preOrder, root); //call preOrder() to build the AL;
 		
 		return preOrder;
 	}//end preorderTraversal() method;
 	
-	private static void preOrderTraversal(ArrayList<Integer> preOrder, TreeNode root) {
+	private static void preOrder(ArrayList<Integer> preOrder, TreeNode root) {
 		// TODO preOrder traversal, put every val into an AL
-		
 		if(root == null){
 			return;
 		}
-		preOrder.add(root.val);
 		
-		preOrderTraversal(preOrder, root.left);
-		preOrderTraversal(preOrder, root.right);
+		//the order here is very important!
+		preOrder.add(root.val); 		//1st, add root.val;
 		
-	}//end preOrderTraversal() method;
+		preOrder(preOrder, root.left);	//2nd, traversal to left branch;
+		
+		preOrder(preOrder, root.right);	//3rd, traversal to the right branch;
+		
+	}//end preOrder() method;
 
 	
 
@@ -170,22 +166,23 @@ public class ConstructBinaryTreeonInPreOrders {
 		// TODO In Order Traversal, install every val into an arrayList
 		ArrayList<Integer> inOrder = new ArrayList<Integer>();
 		
-		inOrderTraversal(inOrder, root);
+		inOrder(inOrder, root);
 		
 		return inOrder;
-	}
+	}//end inorderTraversal() method;
 
-	private static void inOrderTraversal(ArrayList<Integer> inOrder, TreeNode root) {
-		// TODO Auto-generated method stub
+	private static void inOrder(ArrayList<Integer> inOrder, TreeNode root) {
+		// TODO inorder traversal the tree, add each node to an AL
 		if(root == null){
 			return;
 		}
 		
-		inOrderTraversal(inOrder, root.left);
+		//the order here is very important;
+		inOrder(inOrder, root.left);	//1st, traversal to the left branch;
 				
-		inOrder.add(root.val);
+		inOrder.add(root.val);			//2nd, add the root.val to the AL;
 		
-		inOrderTraversal(inOrder, root.right);
+		inOrder(inOrder, root.right);	//3rd, traversal to the right branch;
 		
 	}//end inOrderTraversal() method;
 
