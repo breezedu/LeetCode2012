@@ -1,8 +1,65 @@
 package leetCode2012;
 
-public class LongestCommonProfix {
+import java.util.Scanner;
 
-	public String longestCommonPrefix(String[] strs) {
+public class LongestCommonProfix {
+	
+	public static void main(String[] args){
+		
+		System.out.println("This is a Longest Common Profix program.");
+		
+		//1st, create an array of strings;
+		String[] strs = buildString();
+		//printout the original strings:
+		printStrArray(strs);
+		
+		//2nd, find out the longest common prefix:
+		String LCP = longestCommonPrefix(strs);
+		System.out.println("The longest common prefix is: " + LCP);
+		
+	}//end main();
+
+	private static void printStrArray(String[] strs) {
+		// TODO Printout the original strings
+		if(strs == null){
+			System.out.println("It's an empty string.");
+			return;
+		}
+		
+		int Len = strs.length;
+		for(int i=0; i<Len; i++){
+			System.out.println(" " + strs[i]);
+		}
+		
+		System.out.println();
+	}//end of printStrArray() method;
+
+	private static String[] buildString() {
+		// TODO build an array of strings
+		System.out.println("Please input the num of strings in the array:");
+		Scanner input = new Scanner(System.in);
+		int num = input.nextInt();
+		
+		if(num==0){
+			input.close();
+			return null;
+			
+		}//end of return null condition;
+		
+		System.out.println("There are " + num +" strings, please input them one by one:");
+		String[] strs = new String[num];
+		
+		for(int i=0; i<num; i++){
+			
+			System.out.print("string # " +(i+1)+": ");
+			strs[i] = input.next();
+		}//end for i<num loop; all strings have been inputed;
+		
+		input.close();
+		return strs;
+	}//end buildString() method;
+
+	private static String longestCommonPrefix(String[] strs) {
 	  if(strs == null || strs.length == 0){
           return "";
       } 
