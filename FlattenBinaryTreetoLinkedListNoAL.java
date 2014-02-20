@@ -21,7 +21,7 @@ public class FlattenBinaryTreetoLinkedListNoAL {
 		
 		
 		//3rd, flatten the original tree;
-		flatten(root);
+		flattenNode(root);
 		System.out.println("\nAfter flatten:");
 		printTree(root);
 		
@@ -39,29 +39,44 @@ public class FlattenBinaryTreetoLinkedListNoAL {
 	    
 	}
 
+	/************
+	 * if the current node is null or leaf, just return;
+	 * otherwise divide the node into three part: root, left and right;
+	 * let the root be a solo node without any child;
+	 * then merge the left branch to root.right if left!=null
+	 * then merge the right branch to root.right;
+	 * Recurison flattern left and right node :)
+	 * 
+	 * @param node
+	 * @return
+	 */
 	private static TreeNode flattenNode(TreeNode node) {
-		// TODO Auto-generated method stub
+		// TODO to flatten the current node;
 		if(node == null){
 			return node;
 		}
 		
+		//divide the node into 3 parts
 		TreeNode left = node.left;
 		TreeNode right = node.right;
 		
 		node.left = null;
 		node.right = null; //not quite necessary;
 		
+		//merge left branch to node.right;
 		if(left!=null){
 			node.right = left;
 			node = flattenNode(left);
 		}
 		
+		//merge right branch to node.right;
 		if(right!=null){
 		
 			node.right = right;
 			node = flattenNode(right);
 		}
 		
+		//return new node; node.right==null;
 		return node;
 		
 	}//end of flattenTree() method;
