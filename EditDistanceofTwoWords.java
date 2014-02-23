@@ -54,11 +54,11 @@ public class EditDistanceofTwoWords {
 		//build a path matrix
 		int[][] pathMatrix = buildPathMatrix(match);
 		System.out.println("Printout the path matrix:");
-		printMatrix(pathMatrix, word1, word2);
+		printMatrix(pathMatrix, " "+word1, " "+word2);
 		
 		//3rd, build a backtrack matrix from pathMatrix
 		char[][] backTrack = buildBackTrack(pathMatrix);
-		printMatrix(backTrack, word1, word2);
+		printMatrix(backTrack, " " +word1, " "+word2);
 		
 		//4th, travel the backTrack matrix from down-right to up-left
 		//int conserve = checkBackTrackMatrix(backTrack);
@@ -199,7 +199,7 @@ public class EditDistanceofTwoWords {
 				} else if(pathMatrix[i][j] == pathMatrix[i][j-1] -1){
 					backTrack[i][j] = 'L';
 					
-				} else if(pathMatrix[i][j] == pathMatrix[i-1][j-1]+1 || pathMatrix[i][j]==pathMatrix[i-1][j-1]){
+				} else {// if(pathMatrix[i][j] == pathMatrix[i-1][j-1]+1 || pathMatrix[i][j]==pathMatrix[i-1][j-1]-1){
 					backTrack[i][j] = 'O';
 					
 				}//END IF-ELSE CONDITIONS
@@ -234,17 +234,19 @@ public class EditDistanceofTwoWords {
 		}
 		
 		//setup the whole path matrix;
-		
+		//BOTH MissMatch and Indels are penalized by -1;
+		//pathMatrix[i][j] = maxof4{ pathM[i-1][j]-1, pathM[i][j-1], pathM[i-1][j-1] -u (missmatch), pathM[i-1][j-1]+1 (match);
 		for(int i=1; i<row; i++){
 			
 			for(int j=1; j<col; j++){
-			//	if(match[i-1][j-1] == 0){
-			//		pathMatrix[i][j] = Math.max(pathMatrix[i-1][j], pathMatrix[i][j-1]);
+				if(match[i-1][j-1] == 0){
+					pathMatrix[i][j] = maxOfThree(pathMatrix[i-1][j]-1, pathMatrix[i][j-1]-1, pathMatrix[i-1][j-1]-1);
 					
-			//	} else {
+				} else {
+				
 					pathMatrix[i][j] = maxOfThree(pathMatrix[i-1][j]-1, pathMatrix[i][j-1]-1, pathMatrix[i-1][j-1] + match[i-1][j-1]);
 				
-			//	}
+				}
 			
 			}	
 		}
@@ -267,16 +269,14 @@ public class EditDistanceofTwoWords {
 			System.out.println("it's an empty matrix.");
 			return;
 		}
-		word1 = " " +word1;
-		word2 = " " +word2;
-		
+				
 		int row = match.length;
 		int col = match[0].length;
 		
 		//printout the upper boundary;
 		System.out.print(" ");
 		for(int i=0; i<col; i++){
-			System.out.print(" "+word2.charAt(i));
+			System.out.print("   "+word2.charAt(i));
 		}
 		System.out.println();
 		
@@ -284,8 +284,20 @@ public class EditDistanceofTwoWords {
 			
 			System.out.print(word1.charAt(i));
 			for(int j=0; j<col; j++){
+				if(match[i][j] < -9){
+					System.out.print(" " + match[i][j]);
+					
+				} else if(match[i][j] < 0){
+					System.out.print("  " + match[i][j]);
+					
+				} else if(match[i][j] < 9){
+					System.out.print("   " + match[i][j]);
+					
+				} else {
+					System.out.print("  " + match[i][j]);
+					
+				}
 				
-				System.out.print(" " + match[i][j]);
 			}
 			System.out.println();
 		}
@@ -303,9 +315,7 @@ public class EditDistanceofTwoWords {
 		
 		int row = matrix.length;
 		int col = matrix[0].length;
-		word1 = " " + word1;
-		word2 = " " +word2;
-		
+				
 		System.out.print(" ");
 		for(int i=0; i<col; i++){
 			System.out.print(" " + word2.charAt(i));
