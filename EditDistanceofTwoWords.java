@@ -40,15 +40,16 @@ public class EditDistanceofTwoWords {
 
 	private static int minDistance(String word1, String word2) {
 		// TODO to calculate the distance of editing from word1 to word2
-		
+		//use dynamic programming method:
 		if(word1=="") return word2.length();
 		if(word2=="") return word1.length();
 		
-		//use dynamic programming method:
+		
 		//1st, build a match matrix first;
 		int[][] match = buildMatchMatrix(word1, word2);
 		System.out.println("Printout the match matrix: ");
 		printMatrix(match, word1, word2);
+		
 		
 		//2nd, find the longest path from 
 		//build a path matrix
@@ -56,15 +57,16 @@ public class EditDistanceofTwoWords {
 		System.out.println("Printout the path matrix:");
 		printMatrix(pathMatrix, " "+word1, " "+word2);
 		
+		
 		//3rd, build a backtrack matrix from pathMatrix
+		//penalties for mismatch and indel(gap) are -1;
 		char[][] backTrack = buildBackTrack(pathMatrix);
+		System.out.println("Printout the backTrack matrix:");
 		printMatrix(backTrack, " " +word1, " "+word2);
 		
-		//4th, travel the backTrack matrix from down-right to up-left
-		//int conserve = checkBackTrackMatrix(backTrack);
 		
-		//5th, Printout word1 and word2 after modification (alignment)
-		
+		//4th, Rebuild word1 and word2 after modification (alignment)
+		//inseart * or # as indels (gaps);
 		String newWord1 = rebuildWord1(backTrack, word1);
 		System.out.println("Word1: " + newWord1);
 		
@@ -72,9 +74,10 @@ public class EditDistanceofTwoWords {
 		System.out.println("Word2: " + newWord2);
 		
 		
+		//5th, compare the two new words, calculate editing distance:
 		int conserve = compareAlignedWords(newWord1, newWord2);
 		
-		//so, we return those needed to be edited;
+		//so, we return steps needed;
 		return conserve;
 		
 	}//end minDistance() method;
@@ -83,17 +86,31 @@ public class EditDistanceofTwoWords {
 	private static int compareAlignedWords(String word1, String word2) {
 		// TODO Auto-generated method stub
 		int Len = word1.length();
+		System.out.print("Modify:");
 		
 		int misMatch = 0;
 		for(int i=0; i<Len; i++){
 		//	System.out.print(" " + i +",");
 			if(word1.charAt(i) != word2.charAt(i)){
 				misMatch++;
-			}
+				
+				if(word1.charAt(i) == '*' || word2.charAt(i)=='#'){
+					System.out.print("I");
+					
+				} else {
+					System.out.print("R");
+					
+				}
+				
+			} else {
+				System.out.print("-");
+				
+			}//end outer if-else conditions
 		}
 		
+		System.out.println();
 		return misMatch;
-	}
+	}//End of compareAlignedWords() method;
 
 	private static String rebuildWord2(char[][] backTrack, String word2) {
 		// TODO Auto-generated method stub
@@ -105,7 +122,7 @@ public class EditDistanceofTwoWords {
 		retWord = checkMatrixRight(backTrack, row-1, col-1, retWord, word2);
 		
 		return retWord;
-	}
+	}//end rebuildWord2() method;
 	
 	private static String checkMatrixRight(char[][] backTrack, int m, int n, String retWord, String word2) {
 		// TODO Auto-generated method stub
@@ -131,7 +148,7 @@ public class EditDistanceofTwoWords {
 		}
 		
 		return retWord;
-	}	
+	}//end checkMatrixRight() method; a call from rebuildWord2() method;	
 	
 	private static String rebuildWord1(char[][] backTrack, String word1) {
 		// TODO rebuild word1 according to the backTrack matrix;
@@ -143,7 +160,7 @@ public class EditDistanceofTwoWords {
 		retWord = checkMatrixLeft(backTrack, row-1, col-1, retWord, word1);
 		
 		return retWord;
-	}//end rebuildWord1() method;
+	}//end rebuildWord1() method; a call from rebuildWord1() method;
 
 	private static String checkMatrixLeft(char[][] backTrack, int m, int n,	String retWord, String word1) {
 		// TODO check backTrack[m][n], if it equals to 'O' or 'L', add it to retWord
@@ -167,7 +184,7 @@ public class EditDistanceofTwoWords {
 		}
 				
 		return retWord;
-	}//end checkMatrix(char[][]) method;
+	}//end checkMatrixLeft(char[][]) method;
 
 	private static char[][] buildBackTrack(int[][] pathMatrix) {
 		// TODO build a back track matrix which will be one size bigger than pathMatrix
