@@ -13,7 +13,8 @@ import java.util.Scanner;
  * c) Replace a character
  * 
  * @author Frog
- *
+ * IT IS VERY MUCH LIKE A GLOBAL ALIGNMENT WITH SIGMA==1
+ * 
  */
 public class EditDistanceofTwoWords {
 	
@@ -85,10 +86,9 @@ public class EditDistanceofTwoWords {
 		
 		int misMatch = 0;
 		for(int i=0; i<Len; i++){
-			System.out.print(" " + i +",");
+		//	System.out.print(" " + i +",");
 			if(word1.charAt(i) != word2.charAt(i)){
 				misMatch++;
-				i++;
 			}
 		}
 		
@@ -158,16 +158,14 @@ public class EditDistanceofTwoWords {
 		
 		if(backTrack[m][n] == 'U'){
 			retWord = word1.charAt(m) + retWord;
-			retWord = checkMatrixLeft(backTrack, m-1, n, retWord, word1);
-			
+			retWord = checkMatrixLeft(backTrack, m-1, n, retWord, word1);			
 		}
 		
 		if(backTrack[m][n] == 'L'){
 			retWord =  '*' + retWord;
 			retWord = checkMatrixLeft(backTrack, m, n-1, retWord, word1);
 		}
-		
-		
+				
 		return retWord;
 	}//end checkMatrix(char[][]) method;
 
@@ -194,20 +192,17 @@ public class EditDistanceofTwoWords {
 		for(int i=1; i<row; i++){
 			
 			for(int j=1; j<col; j++){
-				
-				if(pathMatrix[i][j] == pathMatrix[i-1][j-1]+1){
-					backTrack[i][j] = 'O';
-					
-				} 						
-				
-				if(pathMatrix[i][j] == pathMatrix[i][j-1]){
-					backTrack[i][j] = 'L';
-					
-				} 
-				if(pathMatrix[i][j] == pathMatrix[i-1][j]){
+								
+				 if(pathMatrix[i][j] == pathMatrix[i-1][j] -1){
 					backTrack[i][j] = 'U';
 					
-				} 
+				} else if(pathMatrix[i][j] == pathMatrix[i][j-1] -1){
+					backTrack[i][j] = 'L';
+					
+				} else if(pathMatrix[i][j] == pathMatrix[i-1][j-1]+1 || pathMatrix[i][j]==pathMatrix[i-1][j-1]){
+					backTrack[i][j] = 'O';
+					
+				}//END IF-ELSE CONDITIONS
 				
 								
 			}//inner for j<col loop;			
@@ -226,16 +221,16 @@ public class EditDistanceofTwoWords {
 		int col = match[0].length+1;
 		
 		int[][] pathMatrix = new int[row][col];
-		pathMatrix[0][0] = match[0][0];
+		pathMatrix[0][0] = 0;
 		
 		//setup first column;
-		for(int i=0; i<row; i++){
-			pathMatrix[i][0] = 0;
+		for(int i=1; i<row; i++){
+			pathMatrix[i][0] = pathMatrix[i-1][0] -1;
 		}
 		
 		//setup first row;
 		for(int j=1; j<col; j++){
-			pathMatrix[0][j] = 0;
+			pathMatrix[0][j] = pathMatrix[0][j-1] -1;
 		}
 		
 		//setup the whole path matrix;
@@ -243,8 +238,13 @@ public class EditDistanceofTwoWords {
 		for(int i=1; i<row; i++){
 			
 			for(int j=1; j<col; j++){
+			//	if(match[i-1][j-1] == 0){
+			//		pathMatrix[i][j] = Math.max(pathMatrix[i-1][j], pathMatrix[i][j-1]);
+					
+			//	} else {
+					pathMatrix[i][j] = maxOfThree(pathMatrix[i-1][j]-1, pathMatrix[i][j-1]-1, pathMatrix[i-1][j-1] + match[i-1][j-1]);
 				
-				pathMatrix[i][j] = maxOfThree(pathMatrix[i-1][j], pathMatrix[i][j-1], pathMatrix[i-1][j-1] + match[i-1][j-1]);
+			//	}
 			
 			}	
 		}
