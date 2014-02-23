@@ -1,0 +1,109 @@
+This is Edit Distance of Two Words program.
+Please input two words:
+word1: AAABBBCCCDDD
+word2: AABBFCCCDDDEE
+Printout the match matrix: 
+    A   A   B   B   F   C   C   C   D   D   D   E   E
+A   1   1   0   0   0   0   0   0   0   0   0   0   0
+A   1   1   0   0   0   0   0   0   0   0   0   0   0
+A   1   1   0   0   0   0   0   0   0   0   0   0   0
+B   0   0   1   1   0   0   0   0   0   0   0   0   0
+B   0   0   1   1   0   0   0   0   0   0   0   0   0
+B   0   0   1   1   0   0   0   0   0   0   0   0   0
+C   0   0   0   0   0   1   1   1   0   0   0   0   0
+C   0   0   0   0   0   1   1   1   0   0   0   0   0
+C   0   0   0   0   0   1   1   1   0   0   0   0   0
+D   0   0   0   0   0   0   0   0   1   1   1   0   0
+D   0   0   0   0   0   0   0   0   1   1   1   0   0
+D   0   0   0   0   0   0   0   0   1   1   1   0   0
+
+Printout the path matrix:
+        A   A   B   B   F   C   C   C   D   D   D   E   E
+    0  -1  -2  -3  -4  -5  -6  -7  -8  -9 -10 -11 -12 -13
+A  -1   1   0  -1  -2  -3  -4  -5  -6  -7  -8  -9 -10 -11
+A  -2   0   2   1   0  -1  -2  -3  -4  -5  -6  -7  -8  -9
+A  -3  -1   1   1   0  -1  -2  -3  -4  -5  -6  -7  -8  -9
+B  -4  -2   0   2   2   1   0  -1  -2  -3  -4  -5  -6  -7
+B  -5  -3  -1   1   3   2   1   0  -1  -2  -3  -4  -5  -6
+B  -6  -4  -2   0   2   2   1   0  -1  -2  -3  -4  -5  -6
+C  -7  -5  -3  -1   1   1   3   2   1   0  -1  -2  -3  -4
+C  -8  -6  -4  -2   0   0   2   4   3   2   1   0  -1  -2
+C  -9  -7  -5  -3  -1  -1   1   3   5   4   3   2   1   0
+D -10  -8  -6  -4  -2  -2   0   2   4   6   5   4   3   2
+D -11  -9  -7  -5  -3  -3  -1   1   3   5   7   6   5   4
+D -12 -10  -8  -6  -4  -4  -2   0   2   4   6   8   7   6
+
+Printout the back-track matrix:
+    A A B B F C C C D D D E E
+  L L L L L L L L L L L L L L
+A U O L L L L L L L L L L L L
+A U U O L L L L L L L L L L L
+A U U U O L L L L L L L L L L
+B U U U O O L L L L L L L L L
+B U U U U O L L L L L L L L L
+B U U U U U O L L L L L L L L
+C U U U U U U O L L L L L L L
+C U U U U U U U O L L L L L L
+C U U U U U U U U O L L L L L
+D U U U U U U U U U O L L L L
+D U U U U U U U U U U O L L L
+D U U U U U U U U U U U O L L
+
+Word1: AAABBBCCCDDD**
+Word2: AA#BBFCCCDDDEE
+Modify:--I--R------II
+To edit from word1 to word2, we need 4 steps at least.
+
+/***********************************************************
+***********************************************************/
+
+
+This is Edit Distance of Two Words program.
+Please input two words:
+word1: PLEASANTLY
+word2: MEANLY
+Printout the match matrix: 
+    M   E   A   N   L   Y
+P   0   0   0   0   0   0
+L   0   0   0   0   1   0
+E   0   1   0   0   0   0
+A   0   0   1   0   0   0
+S   0   0   0   0   0   0
+A   0   0   1   0   0   0
+N   0   0   0   1   0   0
+T   0   0   0   0   0   0
+L   0   0   0   0   1   0
+Y   0   0   0   0   0   1
+
+Printout the path matrix:
+        M   E   A   N   L   Y
+    0  -1  -2  -3  -4  -5  -6
+P  -1  -1  -2  -3  -4  -5  -6
+L  -2  -2  -2  -3  -4  -3  -4
+E  -3  -3  -1  -2  -3  -4  -4
+A  -4  -4  -2   0  -1  -2  -3
+S  -5  -5  -3  -1  -1  -2  -3
+A  -6  -6  -4  -2  -2  -2  -3
+N  -7  -7  -5  -3  -1  -2  -3
+T  -8  -8  -6  -4  -2  -2  -3
+L  -9  -9  -7  -5  -3  -1  -2
+Y -10 -10  -8  -6  -4  -2   0
+
+Printout the backTrack matrix:
+    M E A N L Y
+  L L L L L L L
+P U O L L L L L
+L U U O L L O L
+E U U O L L U O
+A U U U O L L L
+S U U U U O L L
+A U U U U U O L
+N U U U U O L L
+T U U U U U O L
+L U U U U U O L
+Y U U U U U U O
+
+Word1: PLEASANTLY
+Word2: M#EA##N#LY
+Modify:RI--II-I--
+To edit from word1 to word2, we need 5 steps at least.
