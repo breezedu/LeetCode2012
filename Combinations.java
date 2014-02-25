@@ -42,10 +42,9 @@ public class Combinations {
 		ArrayList<ArrayList<Integer>> combinations = new ArrayList<ArrayList<Integer>>();
 		combinations = combine(n, k);
 		
-		System.out.println("Build combinations of " + k+ " elements set from an array of" + n +" elems.");
+		System.out.println("Build combinations of " + k+ " elements set from an array of " + n +" elems.");
 		printALofAL(combinations);
-		
-		
+				
 		
 	}//end main()
 
@@ -84,6 +83,10 @@ public class Combinations {
 				combine.add(array[i]);
 				buildCombineSets(array, n, k, i+1, combine, combSets);
 				combine.remove(combine.size()-1); //confused about this step :)
+				//these 3 steps are very interesting: at 1st, I though these would not go on
+				//then, I found the 3rd step is supper important.
+				//take k==1 as an example: without step 3, the program will stop and jump out at step 2;
+				//with step three, all other elements could be added to other 'combine' arrayList;
 			}
 			
 		} //end if-else conditions;
