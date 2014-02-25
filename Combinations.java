@@ -73,16 +73,17 @@ public class Combinations {
 		
 		if(combine.size() == k){
 			
-			ArrayList<Integer> addCombine = new ArrayList<Integer>(combine);
-			combSets.add(addCombine);
+		//	ArrayList<Integer> addCombine = new ArrayList<Integer>(combine);
+			combSets.add(combine);
 			
 		} else {
 			
 			for(int i= startPoint; i<n; i++){
 				
-				combine.add(array[i]);
-				buildCombineSets(array, n, k, i+1, combine, combSets);
-				combine.remove(combine.size()-1); //confused about this step :)
+				ArrayList<Integer> temp = new ArrayList<Integer>(combine);
+				temp.add(array[i]);
+				buildCombineSets(array, n, k, i+1, temp, combSets);
+			//3rd step:	combine.remove(combine.size()-1); //confused about this step :)
 				//these 3 steps are very interesting: at 1st, I though these would not go on
 				//then, I found the 3rd step is supper important.
 				//take k==1 as an example: without step 3, the program will stop and jump out at step 2;
