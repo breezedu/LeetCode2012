@@ -72,7 +72,7 @@ public class MergeIntervals {
 	}//end merge() method;
 	
 	// a comparator field :)
-	static final Comparator<Interval> compareFront = new Comparator<Interval>(){
+	private static Comparator<Interval> compareFront = new Comparator<Interval>(){
 		
 		public int compare(Interval one, Interval two){
 			return new Integer(one.start).compareTo(new Integer(two.start));
@@ -105,8 +105,8 @@ public class MergeIntervals {
 				
 		for(int i=0; i<num; i++){
 			Interval tempInt = new Interval();
-			tempInt.start =  (int)(Math.random() *10);
-			tempInt.end = tempInt.start + (int)(Math.random() *10 +1);
+			tempInt.start =  (int)(Math.random() *10 + i*5);
+			tempInt.end = tempInt.start + (int)(Math.random() *10);
 						
 			retIntervals.add(tempInt);
 		}
