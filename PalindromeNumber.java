@@ -39,7 +39,7 @@ public class PalindromeNumber {
 		if(num <0) return false;
 		if(num <10) return true; //0-9 are palindromes;
 		
-		//diff means the 'levels' of num: 10 for 10-99, 100 for 100-999.... 
+		//diff means the 'figures' of num: 10 for 10-99, 100 for 100-999.... 
 		int diff = 10;
 		while(num/diff >= 10){
 			diff *= 10;
