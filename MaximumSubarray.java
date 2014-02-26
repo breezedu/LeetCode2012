@@ -9,7 +9,7 @@ import java.util.Scanner;
  * the contiguous subarray [4,−1,2,1] has the largest sum = 6.
  * 
  * @author Frog
- *
+ * Divide and Conquer!
  */
 public class MaximumSubarray {
 	
@@ -27,10 +27,21 @@ public class MaximumSubarray {
 		
 	}//end main();
 
+	/**************
+	 * divide and conquer :) 
+	 * if the length is less than 100, just calculate with Bruce-force method;
+	 * if the length is longer, divide the array into 3 parts: left, right and middle;
+	 * 1st, calculate maxLeft with Bruce force;
+	 * 2nd, calculate the maxRight with Bruce force;
+	 * 3rd, calculate the maxMid, with liner running time;
+	 * 
+	 * @param array
+	 * @return
+	 */
 	private static int maxSubArray(int[] array) {
 		// TODO Divide and Conquer
 		if(array==null) return 0;
-		if(array.length<5){
+		if(array.length<100){
 			int max = array[0];
 			int Len = array.length;
 			
@@ -90,8 +101,7 @@ public class MaximumSubarray {
 			if(sumL > maxMidL) maxMidL = sumL;
 		}
 		
-		int maxMid = maxMidR + maxMidL + array[mid];
-		
+		int maxMid = maxMidR + maxMidL + array[mid];		
 		
 		return maxOfThree(maxRight, maxLeft, maxMid);
 	}
