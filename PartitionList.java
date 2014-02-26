@@ -41,12 +41,21 @@ public class PartitionList {
 		
 	}//end main()
 
+	/****************
+	 * Create two heads, frontHead(0) and afterHead(0), link all nodes smaller than pivot.val to fHead
+	 * and link all nodes >= pivot.val to the aHead;
+	 * link two new heads together, (discard useless 0s of each new list)
+	 * 
+	 * @param head
+	 * @param pivot
+	 * @return
+	 */
 	private static ListNode partition(ListNode head, int pivot) {
 		// TODO to partition a linked list
 		
 		if(head == null){
 			return null;
-		}
+		}//end directly return condition;
 		
 		ListNode fHead = new ListNode(0);
 		ListNode fp = fHead;
@@ -60,20 +69,21 @@ public class PartitionList {
 				fp.next = p;
 				fp = fp.next;
 					
-			} 
+			} //link to front-list;
 			
 			if(p.val >= pivot){
 				ap.next = p;
 				ap = ap.next;
 		
-			}
+			} //link to after-list;
 			
-			p = p.next;
+			p = p.next; //move on;
 			
 		}//end while() loop;
 	//	if(aHead.next!=null)
-		ap.next=null;
-		fp.next = aHead.next;
+		ap.next=null; 	//cut off after-list, because the last node might be pointing
+						//to some nodes ahead, then there will be a circle in the new list;
+		fp.next = aHead.next; //link two lists together, discard the after-head node;
 		
 		return fHead.next;
 	}//end partition() method;
