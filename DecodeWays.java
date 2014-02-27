@@ -38,6 +38,10 @@ public class DecodeWays {
 
 	/****************
 	 * Dynamic Programming method :)
+	 * the key is to figure out the condition of less than 2 characters;
+	 * 0, 01, 10, 20, 30, 27, 11 etc......
+	 * 
+	 * then following steps are straight forward;
 	 * @param numStr
 	 * @return
 	 */
@@ -68,7 +72,7 @@ public class DecodeWays {
 				ways[1] = 2;
 			}
 			
-		}//end if-else chatat(1)=0 conditions;
+		}//end if-else chatAt(1)=0 conditions;
 		
 		if(Len ==2) return ways[1];
 		
