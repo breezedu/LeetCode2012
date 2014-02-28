@@ -28,6 +28,18 @@ public class TrappingRainWater {
 		
 	}//end main();
 
+	/****************
+	 * divide the original array into parts:
+	 * 1st, pick the 1st peak of the array, then find another peak to it's right side
+	 * the second peak might be the biggest to the right, or the first height
+	 * we could get bigger than the 1st peak;
+	 * calculate the area between the two peaks;
+	 * 
+	 * check if there are other peak-pair to the right side :)
+	 *  
+	 * @param array
+	 * @return
+	 */
 	private static int trap(int[] array) {
 		// TODO calculate the trapping capability of an array:
 		if(array.length<3) return 0;
