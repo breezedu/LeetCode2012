@@ -63,6 +63,19 @@ public class PermutationsI {
 		return retAL;
 	}
 
+	/*****************
+	 * algo as below:
+	 * [1]
+	 * [2, 1]
+	 * [1, 2]
+	 * [3, 2, 1]
+	 * [2, 3, 1]
+	 * [2, 1, 3]
+	 * [3, 1, 2]
+	 * [1, 3, 2]
+	 * [1, 2, 3]
+	 * @param permuteAL
+	 */
 	private static void printALofAL(ArrayList<ArrayList<Integer>> permuteAL) {
 		// TODO print ArrayList of ArrayList
 		if(permuteAL == null || permuteAL.size()==0){
