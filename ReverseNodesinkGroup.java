@@ -90,6 +90,12 @@ public class ReverseNodesinkGroup {
 		return newHead.next;
 	}
 
+	/*************
+	 * dismiss the first node from original list; and put the dismissed node
+	 * as the head of the newly built list;
+	 * @param head
+	 * @return
+	 */
 	private static ListNode reverseList(ListNode head) {
 	//	System.out.println("reverse list" + head.val);
 		// TODO reverse a list
@@ -103,12 +109,12 @@ public class ReverseNodesinkGroup {
 			
 			p1 = p2;
 			p2 = p1.next;
-		}
+		}//p1 pointing to the original last node while newHead pointing to the newly formed
 		
-		p1.next = newHead;		
+		p1.next = newHead;	//finally let p1 pointing to the new head of the list;
 		
-		return p1;
-	}
+		return p1; 
+	}//end reverse a whole partial linked list;
 
 	private static void printList(ListNode head) {
 		// TODO printout a linked list
