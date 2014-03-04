@@ -35,6 +35,19 @@ public class PermutationsI {
 	}//end main()
 
 
+	/*****************
+	 * algo as below:
+	 * [1]
+	 * [2, 1]
+	 * [1, 2]
+	 * [3, 2, 1]
+	 * [2, 3, 1]
+	 * [2, 1, 3]
+	 * [3, 1, 2]
+	 * [1, 3, 2]
+	 * [1, 2, 3]
+	 * @param permuteAL
+	 */
 	private static ArrayList<ArrayList<Integer>> permute(int[] array) {
 		// TODO arrange all possible permutations
 		ArrayList<Integer> empty = new ArrayList<Integer>();
@@ -48,6 +61,7 @@ public class PermutationsI {
 			for(ArrayList<Integer> al:retAL){
 				int size = al.size();
 				
+				//there are n integers in the array, the next one could be anywhere from index 0 to index n+1;
 				for(int j=0; j<size+1; j++){
 					ArrayList<Integer> temp = new ArrayList<Integer>(al);
 					temp.add(j, array[i]);
@@ -63,19 +77,7 @@ public class PermutationsI {
 		return retAL;
 	}
 
-	/*****************
-	 * algo as below:
-	 * [1]
-	 * [2, 1]
-	 * [1, 2]
-	 * [3, 2, 1]
-	 * [2, 3, 1]
-	 * [2, 1, 3]
-	 * [3, 1, 2]
-	 * [1, 3, 2]
-	 * [1, 2, 3]
-	 * @param permuteAL
-	 */
+	
 	private static void printALofAL(ArrayList<ArrayList<Integer>> permuteAL) {
 		// TODO print ArrayList of ArrayList
 		if(permuteAL == null || permuteAL.size()==0){
