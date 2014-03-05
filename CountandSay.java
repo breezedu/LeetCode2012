@@ -35,6 +35,16 @@ public class CountandSay {
 		
 	}//end main()
 
+	/*********
+	 * Pick up the string front, calculate it's length;
+	 * countAndSay: traversal from index 0 to length-1, take the character at index i;
+	 * count all duplications right after i; (count++, index++)
+	 * store the count and charAt(i) to the new string, move the traversal pointer 
+	 * to the first character which is different to charAt(i), and do the same countAndSay;
+	 * 
+	 * @param digit
+	 * @return
+	 */
 	private static String countAndSay(int digit) {
 		// TODO calculate count and say
 		if(digit == 0) return "";
@@ -52,11 +62,12 @@ public class CountandSay {
 				char temp = countSay[i-1].charAt(j);
 				int count=1;
 				
+				//count duplications of countSay[i-1].charAt(j)
 				while(j+1<Len && countSay[i-1].charAt(j+1)==temp){
 					count++;
 					j++;
 				}
-				
+				//add the number of duplication and the integer into tempStr string;
 				tempStr.append(count).append(temp);
 				j++;
 			}//end while j<Len loop
