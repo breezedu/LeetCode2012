@@ -20,7 +20,7 @@ public class DistinctSubsequencesDP {
 	
 	public static void main(String[] args){
 		
-		System.out.println("This is Distinct Subsequences program.");
+		System.out.println("This is Distinct Subsequences DP program.");
 		
 		//1st, ask user to input the original string and the target string;
 		System.out.println("Please input the original and target strings:");
@@ -38,12 +38,13 @@ public class DistinctSubsequencesDP {
 		int dist = numDistinct(oriStr, target);
 		
 		//printout the result
-		System.out.println("There are " + dist + " distinct subsequences in the original string.");
+		System.out.println("There are " + dist + " distinct subsequences.");
 		System.out.println("The time used is: " + timmer.elapsedTime());
 		
 	}//end main()
 
 	/**********
+	 * string and substring questions could always be solved by DP, :)
 	 * matrix(i, j) stand for the number of subsequences of target(0, i) in oriStr(0, j). 
 	 * If target.charAt(i) == oriStr.charAt(j), matrix(i, j) = matrix(i-1, j-1) + matrix(i-1,j); 
 	 * Otherwise, matrix(i, j) = matrix(i-1,j).
@@ -60,23 +61,51 @@ public class DistinctSubsequencesDP {
 	    
 		for (int i = 0; i < oriStr.length(); i++)
 			matrix[i][0] = 1;
+		
+		/**********
+		 * matrix(i, j) stand for the number of subsequences of target(0, i) in oriStr(0, j). 
+		 * If target.charAt(i) == oriStr.charAt(j), 
+		 * 		matrix(i, j) = matrix(i-1, j-1) + matrix(i-1,j); 
+		 * 
+		 * Otherwise, matrix(i, j) = matrix(i-1,j).
+		 */
 	 
 		for (int i = 1; i <= oriStr.length(); i++) {
 			for (int j = 1; j <= target.length(); j++) {
 				
-				if (oriStr.charAt(i - 1) == target.charAt(j - 1)) {
-					matrix[i][j] += matrix[i - 1][j] + matrix[i - 1][j - 1];
+				if (oriStr.charAt(i-1) == target.charAt(j-1)) {
+					matrix[i][j] += matrix[i-1][j] + matrix[i-1][j-1];
 					
 				} else {
-					matrix[i][j] += matrix[i - 1][j];
+					matrix[i][j] += matrix[i-1][j];
 					
 				} //end if-else conditions;
 				
 			}//end for j<=target.length loop;
 		}//end for i<= oriStr.length loop;
 	 
+		printMatrix(matrix);
+		
 		return matrix[oriStr.length()][target.length()];
 		
 	}//end of numDistinct() method;
+
+	private static void printMatrix(int[][] matrix) {
+		// TODO Printout a matrix
+		if(matrix==null) return;
+		int row = matrix.length;
+		int col = matrix[0].length;
+		
+		for(int i=0; i<row; i++){
+			
+			for(int j=0; j<col; j++){
+				
+				System.out.print(" " + matrix[i][j]);
+			}
+			System.out.println();
+		}
+		
+		System.out.println();
+	}//end of printMatrix() method;
 
 }//end of everything in DistinctSubsequences class
