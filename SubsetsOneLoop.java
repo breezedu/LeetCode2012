@@ -2,6 +2,7 @@ package leetCode2012;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Stack;
 
 /***************
  * Given a set of distinct integers, S, return all possible subsets.
@@ -25,7 +26,7 @@ import java.util.Scanner;
  * @author Frog
  *
  */
-public class Subsets {
+public class SubsetsOneLoop {
 	
 	public static void main(String[] args){
 		
@@ -63,16 +64,13 @@ public class Subsets {
 		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
 	 
 		for (int i=0; i<Len; i++) {
-			ArrayList<ArrayList<Integer>> temp = new ArrayList<ArrayList<Integer>>();
+			Stack<ArrayList<Integer>> temp = new Stack<ArrayList<Integer>>();
 	 
 			//get sets that are already in result
 			for (ArrayList<Integer> a : result) {
-				temp.add(new ArrayList<Integer>(a));
-			}
-	 
-			//add array[i] to the existing sets
-			for (ArrayList<Integer> a : temp) {
-				a.add(array[i]);
+				ArrayList<Integer> tempAL = new ArrayList<Integer>(a);
+				tempAL.add(array[i]);
+				temp.push(tempAL);
 			}
 	 
 			//add array[i] only as a set
@@ -147,9 +145,9 @@ public class Subsets {
 		
 		int[] array = new int[num];
 		
-		array[0] = (int)(Math.random()*10);
+		array[0] = 10;// (int)(Math.random()*10);
 		for(int i=1; i<num; i++){
-			array[i] = array[i-1] + (int)(Math.random()*10 + 1);
+			array[i] = array[i-1] + 1;// (int)(Math.random()*10 + 1);
 		}
 		
 		return array;
