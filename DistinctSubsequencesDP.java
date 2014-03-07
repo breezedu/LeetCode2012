@@ -74,10 +74,10 @@ public class DistinctSubsequencesDP {
 			for (int j = 1; j <= target.length(); j++) {
 				
 				if (oriStr.charAt(i-1) == target.charAt(j-1)) {
-					matrix[i][j] += matrix[i-1][j] + matrix[i-1][j-1];
+					matrix[i][j] = matrix[i-1][j] + matrix[i-1][j-1];
 					
 				} else {
-					matrix[i][j] += matrix[i-1][j];
+					matrix[i][j] = matrix[i-1][j];
 					
 				} //end if-else conditions;
 				
