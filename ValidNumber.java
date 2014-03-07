@@ -43,7 +43,7 @@ public class ValidNumber {
 
 	private static boolean isNumber(String s) {
 		// TODO check if a string is a valid number or not
-		// through regex expression;
+		// through regular expression;
 
 		if(s.trim().isEmpty()){  
             return false;  
@@ -53,10 +53,13 @@ public class ValidNumber {
         String regex = "[-+]?(\\d+\\.?|\\.\\d+)\\d*(e[-+]?\\d+)?";  
         
         if(s.trim().matches(regex)){  
-            return true;  
+        	return true;  
+            
         }else{  
-            return false;  
-        }
+        	return false;
+        	
+        }//end if-else matches regular expression conditions;
+        
 	}// end isNumber() method;
 
 }//end everything of ValidNumber;
