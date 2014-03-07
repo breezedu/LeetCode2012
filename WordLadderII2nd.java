@@ -40,10 +40,14 @@ public class WordLadderII2nd {
 		
 		
 		//2nd, find out all word ladders to transfer start to end string;
+		Stopwatch timmer = new Stopwatch();
 		ArrayList<ArrayList<String>> ladders = findLadders(start, end, dict);
 		
 		System.out.println("After findLadders, there are " + ladders.size() +" sets found.");
 		printALofAL(ladders);
+		
+		//check out the time used
+		System.out.println("Time used: " + timmer.elapsedTime() +".");
 		
 		
 	}//end main();
@@ -55,8 +59,8 @@ public class WordLadderII2nd {
 		ArrayList<ArrayList<String>> ladderSets = new ArrayList<ArrayList<String>>();
 		if(dict.size()==0) return ladderSets;
 		
-		ladder.add(start);
-		dict.add(end);
+		ladder.add(start); 	//add start word to the ladder
+		dict.add(end);		//add end word to the hashSet
 		
 		checkLadders(end, ladder, ladderSets, dict);
 		
@@ -66,6 +70,15 @@ public class WordLadderII2nd {
 
 	/****************
 	 * checkLadders() method, to check all possible word ladders, only put shortest into AL
+	 * 1st peep the last word in the ladder arrayList, compare it with the end:
+	 * 		if match, we got one valid ladder, compare the ladder with ALs the ladderSets ALofAL;
+	 * 		only add the shortest ladder to the ladderSets; if the new ladder we got is shorter
+	 * 		than the ladderSets.get(0), then clear() the ladderSets, add new ladder to ladderSets;
+	 * 2nd if the peep word does not match the end word:
+	 * 		change each one character of the peeped word with 'a' to 'z' (word.length*26 possibilities)
+	 * 		if the hashSet contains the new word (currentWord) we just got:
+	 * 			add the currentWord to the ladder, and delete it from the hashSet (to prevent dead-lock loop)
+	 * 		pass the new ladder and new hashSet to checkLadders() method;
 	 * 
 	 * @param end
 	 * @param ladder
@@ -77,7 +90,7 @@ public class WordLadderII2nd {
 		ArrayList<ArrayList<String>> ladderSets, HashSet<String> dict) {
 		// TODO check the word ladders, put those shortest into the ladderSets
 		String currentWord = ladder.get(ladder.size()-1);
-		
+		System.out.println("currentWord: " +currentWord);
 		if(currentWord.equals(end)){
 			
 			if(ladderSets.isEmpty() || ladder.size() == ladderSets.get(0).size()){
