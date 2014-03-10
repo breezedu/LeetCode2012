@@ -3,7 +3,8 @@ package leetCode2012;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Set;
+import java.util.HashSet;
+import java.util.Iterator;
 
 /*********
  * Given an array of strings, return all groups of strings that are anagrams.
@@ -12,7 +13,7 @@ import java.util.Set;
  * @author Frog
  *
  */
-public class Anagrams {
+public class AnagramsHashStack {
 	
 	public static void main(String[] args){
 		
@@ -21,7 +22,7 @@ public class Anagrams {
 		//1st, input an array of strings:
 		String[] words = {"abc", "bca", "bac", "bbb", "bbca", "abcb"};
 		
-
+		
 		//2nd, call anagrams() method to group anagrams
 		Stopwatch timmer = new Stopwatch();
 		ArrayList<String> anagrams = anagramWords(words);
@@ -49,37 +50,43 @@ public class Anagrams {
 	 * @return
 	 */
 	private static ArrayList<String> anagramWords(String[] words) {
-		// TODO get all anagrams
+		// TODO Auto-generated method stub
 		ArrayList<String> anagrams = new ArrayList<String>();
 		if(words==null || words.length<2) return anagrams;
 		
-		HashMap<String, ArrayList<String>> anagMap = new HashMap<String, ArrayList<String>>();
+		HashMap<String, String> anagMap = new HashMap<String, String>();
+		HashSet<String> keys = new HashSet<String>();
 		
 		int Len = words.length;
 		for(int i=0; i<Len; i++){
 			char[] tempChar = words[i].toCharArray();
 			Arrays.sort(tempChar);
 			String tempWord = new String(tempChar); 
+	//		System.out.println("sorted: " + tempWord +", ori: " + words[i]);
 			
 			if(!anagMap.containsKey(tempWord)){
-				ArrayList<String> tempAL = new ArrayList<String>();
-				tempAL.add(words[i]);
-				anagMap.put(tempWord, tempAL);
+				
+				anagMap.put(tempWord, words[i]);
 				
 			} else {
-			//	if(anagMap.get(tempWord).size()==1) keys.push(tempWord);				
-				anagMap.get(tempWord).add(words[i]);
+				anagrams.add(words[i]);
+				keys.add(anagMap.get(tempWord));
 				
 			}//end if-else conditions
 			
 		}//end for i<Len loop;
 		
-		Set<String> set = anagMap.keySet(); 
-		for(String s:set){
-			if(anagMap.get(s).size()>1)
-				anagrams.addAll(anagMap.get(s));
+		Iterator<String> set = keys.iterator();
+		while(set.hasNext()){
+			anagrams.add(set.next());
 		}
 		
+		/*
+		while(!keys.isEmpty()){
+			anagrams.addAll(anagMap.get(keys.pop()));
+			
+		}//end while keys stack is not empty loop;		
+		*/
 		return anagrams;
 	}//end anagramWords() method;
 
