@@ -49,6 +49,7 @@ public class NQueensPuzzle {
 		
 	}//end main()
 
+
 	/************
 	 * initial an board matrix to record the valid queens' position;
 	 * if matrix[i][j] ==0, it means there's no Queen there; otherwise there's a Queen
@@ -59,8 +60,7 @@ public class NQueensPuzzle {
 	 * 
 	 * !!! recovery the matrix[row][i] back to 0, then we do not need to initial a new matrix;
 	 * when row reaches n, it means a valid board has been build, create String[] array 
-	 * according to the matrix: 0-> '.', 1->'Q';
-	 * add the string into an ArrayList, return the ArrayList;
+	 * add array to an ArrayList, return that arrayList
 	 * @param n
 	 * @return
 	 */
@@ -76,15 +76,22 @@ public class NQueensPuzzle {
 		return retAL;
 	}//end solveNQueens() method;
 
-
-	private static void dfsBoard(int[][] matrix, int n, int row, ArrayList<String[]> retAL) {
+	/*********
+	 * dfsBoard to check if any position at current row is valid for another queen;
+	 * if YES, update matrix[row][i]; call dfsBoard() to check next row;
+	 * after dfsBoard() next row, recover current matrix[row][i] back to 0;
+	 * 
+	 * @param matrix
+	 * @param row
+	 * @param n
+	 * @param retAL
+	 */
+	private static void dfsBoard(int[][] matrix, int row, int n, ArrayList<String[]> retAL) {
 		// TODO deep-first-search the board matrix, check if there's any location at row n valid for another queen
 		//return retAL condition
 		if(row == n){
 			System.out.println("Got one board.");
 			printMatrix(matrix);
-			
-			//create an string[] array based on the matrix: 0-> '.', 1->'Q';
 			//add string[] array to arrayList
 			String[] queens = new String[n];
 			for(int q=0; q<n; q++){
@@ -103,7 +110,7 @@ public class NQueensPuzzle {
 		for(int i=0; i<n; i++){
 			if(isValid(matrix, row, i)){
 				
-				matrix[row][i] = 1;
+				matrix[row][i] = 1; 	//update matrix[row][i]
 				dfsBoard(matrix, row+1, n, retAL);//call dfsBoard() for next row;
 				
 				//recovery matrix
@@ -177,7 +184,10 @@ public class NQueensPuzzle {
 	
 	private static void printArrayList(ArrayList<String[]> queenPuzzle) {
 		// TODO printout all string[] array in an arrayList
-		if(queenPuzzle==null || queenPuzzle.size()==0) return;
+		if(queenPuzzle==null || queenPuzzle.size()==0) {
+			System.out.println("No solution for current input board.");
+			return;
+		}
 		
 		for(String[] array:queenPuzzle){
 			printArray(array);
