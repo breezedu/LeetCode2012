@@ -28,23 +28,28 @@ public class PermutationSequence {
 		Scanner input = new Scanner(System.in);
 		int num = input.nextInt();
 		
+		//calculate # of possible permutations
+		int pn = 1;
+		for(int i=0; i<num; i++){
+			pn *= (i+1);
+		}
+		System.out.println("There are " + pn + " possible permutations.");
 		System.out.print("Please input the Kth permutation sequence: k=" );
 		int k = input.nextInt();
 		
 		input.close();
 		
 		
-		//2nd, build an arrayList storage all permutations of num:
-		ArrayList<ArrayList<Integer>> permuteAL = permute(num);
-		
+		//2nd, calculate the Kth permutation sequence		
 		String kthPermutation = getPermutation(num, k);
 		
 		//3rd, printout the permutations
-		System.out.println("Printout the ArrayList of ArrayList: " + permuteAL.size());
-		printALofAL(permuteAL);
-		
 		System.out.println("The Kth, permutation sequence is: " + kthPermutation);
 		
+		System.out.println("\nPrintout all possible permutations in order:");
+		for(int i=0; i<pn; i++){
+			System.out.println("The " + (i+1) +"th permutation is: " + getPermutation(num, (i+1)));
+		}
 		
 	}//end main()
 
@@ -94,77 +99,5 @@ public class PermutationSequence {
 		
 		return retStr;
 	}//end getPermutation() method;
-
-
-	private static ArrayList<ArrayList<Integer>> permute(int num) {
-		// TODO arrange all possible permutations
-		ArrayList<Integer> empty = new ArrayList<Integer>();
-		ArrayList<ArrayList<Integer>> retAL = new ArrayList<ArrayList<Integer>>();
-		retAL.add(empty);
-		
-		for(int i=num; i>0; i--){
-			
-			ArrayList<ArrayList<Integer>> tempAL = new ArrayList<ArrayList<Integer>>();
-			
-			for(ArrayList<Integer> al:retAL){
-				int size = al.size();
-				
-				for(int j=0; j<size+1; j++){
-					ArrayList<Integer> temp = new ArrayList<Integer>(al);
-					temp.add(j, i);
-					
-					if(!tempAL.contains(temp)){
-						tempAL.add(temp);
-					}
-				}
-				
-			}
-			
-			retAL = tempAL;
-		}//end for i<=num loop;
-		
-		return retAL;
-	}
-
-	/*****************
-	 * algo as below:
-	 * [1]
-	 * [2, 1]
-	 * [1, 2]
-	 * [3, 2, 1]
-	 * [2, 3, 1]
-	 * [2, 1, 3]
-	 * [3, 1, 2]
-	 * [1, 3, 2]
-	 * [1, 2, 3]
-	 * @param permuteAL
-	 */
-	private static void printALofAL(ArrayList<ArrayList<Integer>> permuteAL) {
-		// TODO print ArrayList of ArrayList
-		if(permuteAL == null || permuteAL.size()==0){
-			System.out.println("The ArrayList of ArrayList is Empty!");
-			return;
-		}
-		
-		for(ArrayList<Integer> al: permuteAL){
-			printArrayList(al);
-		}
-		
-		System.out.println();
-	}//end printALofAL() method;
-
-	private static void printArrayList(ArrayList<Integer> al) {
-		// TODO printout an arrayList
-		if(al == null || al.size()==0){
-			System.out.println("one empty arraylist.");
-			return;
-		}
-		
-		for(int e:al){
-			System.out.print(" " +e);
-		}
-		
-		System.out.println();
-	}//end printArrayList() method;
 	
 }//end of everything in PermutationsI class
