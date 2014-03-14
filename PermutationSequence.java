@@ -48,10 +48,30 @@ public class PermutationSequence {
 		
 	}//end main()
 
-
+	/*************
+	 * After sorting all permutations, we could see the pattern:
+	 * take num=4 for example, there are 4*3*2*1=24 permutations in total;
+	 * the first 6 start with 1, the 7-12 start with 2, 13-18 start with 3, 19-24 start with 4;
+	 * to choose the 1st number of the Kth permutation, we have to calculate k/(3*2*1); 
+	 * if we got 0, then the first element is 1; got 1, the first element is 2, etc...
+	 * 
+	 * after we got the first element, we have to check the second; 
+	 * indeed, it is quite similar with check k=k%(3*2*1) for (4-1) permutations;
+	 * this time we have to calculate k%(3*2*1), then use this new Kth to check which number
+	 * should the second element be; 
+	 * BUT, the number left could be (1,2,3), (1,3,4), (1,2,4) or (2,3,4), whatever left for
+	 * next cycle, there must be the same order: from small to big; Here, I use an arrayList
+	 * to store all integers from 1 to n, every time we finish a cycle, pick out that integer
+	 * from the arrayList, then remove it; all other integers left in the arrayList are still
+	 * in the same ordering;
+	 * 
+	 * 
+	 * @param num
+	 * @param k
+	 * @return
+	 */
 	private static String getPermutation(int num, int k) {
-		// TODO get the kth permutation sequence of num integers;
-		
+		// TODO get the kth permutation sequence of num integers;		
 		String retStr = "";
 		ArrayList<Integer> nums = new ArrayList<Integer>();
 		int totalPer = 1;
@@ -61,22 +81,19 @@ public class PermutationSequence {
 			totalPer *= i;
 		}
 	
-		int n = num; 
-		k=k-1;
-		while(n>0){
+		k=k-1; 	//this step is a trick;
+		while(num>0){			
+			totalPer = totalPer/num;	//P(n)=n*(n-1)**2*1; we get P(n-1) here;
+			int curr = k/totalPer;		//the currTH integer in the nums is the one!
+			retStr += nums.get(curr);	//add the currTH integer to the ret-String;
+			nums.remove(curr);			//remove curr, sequence in the AL is sorted still;
 			
-			totalPer = totalPer/n;
-			
-			int curr = k/totalPer;
-			retStr += nums.get(curr);
-			nums.remove(curr);
-			
-			k = k%totalPer;
-			n = n-1;
+			k = k%totalPer;				//update k for next cycle;
+			num = num-1;				//update num for next figure;
 		}
-
+		
 		return retStr;
-	}
+	}//end getPermutation() method;
 
 
 	private static ArrayList<ArrayList<Integer>> permute(int num) {
