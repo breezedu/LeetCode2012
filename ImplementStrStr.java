@@ -38,16 +38,15 @@ public class ImplementStrStr {
 		// TODO Auto-generated method stub
 		int nLen = needle.length();
 		int hLen = haystack.length();
-	 
-		if (nLen == hLen && nLen == 0) return "";
+		
 		if (nLen == 0) return haystack;
 	 
 		for (int i = 0; i < hLen; i++) {
-			// return null if hLen-i reach out of needle boundary;
+			// return null if hLen-i is shorter than needle.length;
 			if (hLen - i + 1 < nLen) return null;	 
 			int k = i;
 			int j = 0;
-	 
+			//compare char by char; compare subString also works;
 			while (j < nLen && k < hLen && needle.charAt(j) == haystack.charAt(k)) {
 				j++;
 				k++;
