@@ -107,7 +107,11 @@ public class MinimumWindowSubstring {
 					if(i-start < minEnd-minStart){
 						minStart = start;
 						minEnd = i;
-			//			Len--;
+					
+					//	Once the Len reached T.length, there's no necessary to reduce, ==!
+					//	Len--;
+					//	Found.put(s.charAt(indexQ.peek()), Found.get(s.charAt(indexQ.peek()))-1);						
+					//	indexQ.poll();
 					}
 					
 				}//end if Len == t.length condition;
