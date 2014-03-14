@@ -92,14 +92,13 @@ public class MinimumWindowSubstring {
 				if(Found.get(curr) <= toFind.get(curr)){
 					Len++;					
 				}
-				
+				System.out.println("curr: " + curr +". Len=" + Len);
 				if(Len == t.length()){
+					
+					//locate the start index
 					while(Found.get(s.charAt(indexQ.peek()))>toFind.get(s.charAt(indexQ.peek()))){
 						
-						if(toFind.containsKey(s.charAt(indexQ.peek()))){
-							Found.put(s.charAt(indexQ.peek()), Found.get(s.charAt(indexQ.peek()))-1);
-						}
-						
+						Found.put(s.charAt(indexQ.peek()), Found.get(s.charAt(indexQ.peek()))-1);						
 						indexQ.poll();
 					}//end while loop, get the valid start index;
 					
@@ -108,6 +107,7 @@ public class MinimumWindowSubstring {
 					if(i-start < minEnd-minStart){
 						minStart = start;
 						minEnd = i;
+			//			Len--;
 					}
 					
 				}//end if Len == t.length condition;
