@@ -28,9 +28,10 @@ public class SubstringwithConcatenationofAllWords {
 		//String[] L = {"foo", "bar"};
 		String[] L = {"fooo","barr","wing","ding","wing"};
 		
-		System.out.print("Please input the string:");
+		System.out.print("Please input the string: ");
 		Scanner input = new Scanner(System.in);
 		String S = input.next();
+		//input: lingmindraboofooowingdingbarrwingmonkeypoundcake
 		input.close();
 		
 		
@@ -43,6 +44,26 @@ public class SubstringwithConcatenationofAllWords {
 		
 	}//end of main()
 
+	/**************
+	 * create two hashMaps, toFind() and Found;
+	 * for toFind HashMap:
+	 * traversal the array[] L, take array[i] as the key, the times it appears as value;
+	 * for Found HashMap: array[i] as the key, 0 as the value;
+	 * 
+	 * for every substring of S with length L.length*L[0].length();
+	 * initial count=0;
+	 * check each sub-substring of L[0].length: tempStr=S.substring(i, i+L[0].length()):
+	 * if it isn't in the toFind() Map, break;
+	 * if it is in the Map, Found.getKey(tempStr)+1;
+	 * 	if Found.getKey(tempStr)==toFind.getKey(tempStr), count = count+toFind.getKey(tempStr);
+	 *  if count = L.length, we got one substring in S which include all Concatenation of L;
+	 *  add index i into return-ArrayList;
+	 *  
+	 * return the return-ArrayList in the end;
+	 * @param S
+	 * @param L
+	 * @return
+	 */
 	private static ArrayList<Integer> findSubstring(String S, String[] L) {
 		// TODO Auto-generated method stub
 		ArrayList<Integer> retAL = new ArrayList<Integer>();
@@ -69,11 +90,12 @@ public class SubstringwithConcatenationofAllWords {
 		
 		for(int i=0; i<=Len-subLen; i++){
 			HashMap<String, Integer> tempFound = new HashMap<String, Integer>(Found);
-			
+			System.out.print(" i= " + i +". ");
 			int count=0;
 			for(int j=i; j<i+subLen; j+=L[0].length()){
 				String tempStr = S.substring(j, j+L[0].length());
-				System.out.print(" " + tempStr);
+				System.out.print("  " + tempStr);
+				
 				if(!toFind.containsKey(tempStr)) break;
 				else tempFound.put(tempStr, tempFound.get(tempStr)+1);
 				
