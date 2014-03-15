@@ -57,10 +57,13 @@ public class UniqueBinarySearchTreesII {
 					for(int right = 0; right <treeSets.get(i-1-j).size(); right++){
 						
 						TreeNode currNode = new TreeNode(j+1); //create a new root node;
+						
 						//copy a new left branch from treeSets.get(j).get(left) tree;
 						currNode.left = copyTree(treeSets.get(j).get(left));
+						
 						//copy a new right branch from treeSets.get(i-1-j).get(right) tree;
 						currNode.right = copyTree(treeSets.get(i-1-j).get(right));
+						
 						//update right branch of current tree; 
 						updateRightBranch(currNode.right, currNode.val);
 						
@@ -90,8 +93,14 @@ public class UniqueBinarySearchTreesII {
 		*/
 		
 		return treeSets.get(num);
-	}
+	}//end of numNodesTrees() method;
 
+	/*********
+	 * create a new tree by copying from an exist tree;
+	 * each node has the same val as the original tree;
+	 * @param tree
+	 * @return
+	 */
 	private static TreeNode copyTree(TreeNode tree) {
 		// TODO create a new tree, each node in the new tree has the same val of old tree;
 		if(tree == null) return null;
@@ -101,8 +110,16 @@ public class UniqueBinarySearchTreesII {
 		retTree.right = copyTree(tree.right);
 		
 		return retTree;
-	}
-
+	}//end copyTree() method;
+	
+	/*****
+	 * update every node's val by adding n;
+	 * in the numNodesTrees() method, we just passed the root.right to the updateRightBranch()
+	 * method, thus only the right branch's nodes are updated;
+	 * 
+	 * @param root
+	 * @param n
+	 */
 	private static void updateRightBranch(TreeNode root, int n) {
 		// TODO traversal the whole right branch, add root.val to every node's val;
 		if(root==null) return;
