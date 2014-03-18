@@ -72,13 +72,13 @@ public class InterleavingStringDPwithMatrix {
 		int[][] matrix = new int[Len1+1][Len2+1];
 		matrix[0][0] = 1;
 		int index=0;
-		while(str3[index]==str1[index]) {
+		while(index<str1.length && str3[index]==str1[index]) {
 			matrix[index+1][0]=1;
 			reach[index] = true;
 			index++;
 		}
 		index = 0;
-		while(str3[index]==str2[index]) {
+		while(index<str2.length && str3[index]==str2[index]) {
 			matrix[0][index+1]=1;
 			reach[index] = true;
 			index++;
@@ -95,7 +95,7 @@ public class InterleavingStringDPwithMatrix {
                     matrix[row+1][col+1]=1; 
                     reach[index] = true;
                 }
-                if(str2[col] == str3[index] &&matrix[row+1][col]==1){
+                if(str2[col] == str3[index] && matrix[row+1][col]==1){
                 	matrix[row+1][col+1] =1;
                 	reach[index] = true;
                 	//matched[i1][i2] |= matched[i1][i2 - 1];
