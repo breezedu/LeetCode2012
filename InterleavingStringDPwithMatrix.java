@@ -14,7 +14,7 @@ import java.util.Scanner;
  * When s3 = "aadbbbaccc", return false.
  * 
  * @author Frog
- * This program remove s1 from s3 then compare the left string to s2 :)
+ * 
  */
 
 public class InterleavingStringDPwithMatrix {
@@ -89,7 +89,6 @@ public class InterleavingStringDPwithMatrix {
 			for(int col=0; col<str2.length; col++){
 				
 				index = row+col+1;
-				if(!reach[index-1]) return false; //if at any point we could not go to next char;
 				
 				if(str1[row] == str3[index] && matrix[row][col+1]==1){
                     matrix[row+1][col+1]=1; 
@@ -110,6 +109,25 @@ public class InterleavingStringDPwithMatrix {
 		return reach[Len3-1];
 	}//end isInterleave() method;
 
+	/************
+	 * The goal is to build a matrix base on string1 and string2;
+	 * then let the string3 'go along' the matrix from up-left to down-right:
+	 * like the matrix and three strings below:
+	 ******************************
+	 *     d b b c a
+	 *   . . . . . .
+	 * a a . . . . .
+	 * a a d b b c .
+	 * b . b b . b .
+	 * c . . c b c a
+	 * c . . . c . c
+	 * S3 is a Interleaving String.
+	 * *****************************
+	 * @param matrix
+	 * @param str1
+	 * @param str2
+	 * @param str3
+	 */
 	private static void printMatrix(int[][] matrix, char[] str1, char[] str2, char[] str3) {
 		// TODO Auto-generated method stub
 		
