@@ -14,14 +14,10 @@ import java.util.Scanner;
  * When s3 = "aadbbbaccc", return false.
  * 
  * @author Frog
- * This program remove s1 from s3 then compare the left string to s2 :)
+ * When there are duplications and repeations in S1 and S2, the running time will be very long, :(
  */
-class Pairs{
-	int row;
-	int col;
-}
 
-public class InterleavingStringDPMatrix {
+public class InterleavingStringRecursion {
 
 	public static void main(String[] args){
 		
@@ -65,8 +61,7 @@ public class InterleavingStringDPMatrix {
 		if(Len1==0 && Len2==0 &&Len3==0) return true;
 		if(Len1==0) return s2.equals(s3);
 		if(Len2==0) return s1.equals(s3);
-		
-	//	int[][] matrix = new int[Len1+1][Len2+2];
+
 		int p = 0;
 		int row = 0;
 		int col = 0;
@@ -74,35 +69,40 @@ public class InterleavingStringDPMatrix {
 		char[] str2 = s2.toCharArray();
 		char[] str3 = s3.toCharArray();
 		
-		return traversalMatrix(str3, p, str1, row, str2, col);
+		return traversalRecursion(str3, p, str1, row, str2, col);
 				
 	}//end isInterleave() method;
 
-	private static boolean traversalMatrix(char[] str3, int p, char[] str1,	int row, char[] str2, int col) {
+	/********
+	 * Recursion traversal:
+	 * @param str3
+	 * @param p
+	 * @param str1
+	 * @param row
+	 * @param str2
+	 * @param col
+	 * @return
+	 */
+	private static boolean traversalRecursion(char[] str3, int p, char[] str1,	int row, char[] str2, int col) {
 		// TODO Auto-generated method stub
 		
 		if(p==str3.length) {
 			System.out.println("one trace.");
 			return true;
 			
-		} else {
-			
-
+		} else {			
+			//going down;
 			if(row<str1.length && str3[p] == str1[row]){
-				if(traversalMatrix(str3, p+1, str1, row+1, str2, col)) return true;				
+				if(traversalRecursion(str3, p+1, str1, row+1, str2, col)) return true;				
 				//reverse p and row;
 			}			
-			
+			//going left;
 			if(col<str2.length && str3[p] == str2[col]){
-				if( traversalMatrix(str3, p+1, str1, row, str2, col+1)) return true;
+				if( traversalRecursion(str3, p+1, str1, row, str2, col+1)) return true;
 				//reverse p and row;
-			}			
-			
+			}						
 		}	
-		
 		return false;
-	}
-	
-	
+	}//end traversalMatrix() method;
 	
 }//end everything in InterleavingString class
