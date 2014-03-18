@@ -1,0 +1,38 @@
+Interleaving String output :)
+
+
+This is a Interleaving String problem.
+Please input two original strings:
+s1= aabcc
+s2= dbbca
+Please input the last string to check:
+s3= aadbbbaccc
+Matrix plus three strings.
+    d b b c a
+  . . . . . .
+a a . . . . .
+a a d b b . .
+b . b b b . .
+c . . . . . .
+c . . . . . .
+S3 is NOT a Interleaving String.
+The time uses is: 0.001 seconds.
+
+
+
+This is a Interleaving String problem.
+Please input two original strings:
+s1= aabcc
+s2= dbbca
+Please input the last string to check:
+s3= aadbbcbcac
+Matrix plus three strings.
+    d b b c a
+  . . . . . .
+a a . . . . .
+a a d b b c .
+b . b b . b .
+c . . c b c a
+c . . . c . c
+S3 is a Interleaving String.
+The time uses is: 0.001 seconds.
