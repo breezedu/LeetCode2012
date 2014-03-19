@@ -8,7 +8,7 @@ import java.util.Stack;
  * Empty cells are indicated by the character '.'.
  * You may assume that there will be only one unique solution.
  * 
- * @author Yan
+ * @author Frog
  *
  */
 public class SudokuSolve {
