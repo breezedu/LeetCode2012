@@ -22,9 +22,9 @@ public class SudokuSolve {
 		
 		char[][] board = new char[9][9];
 		Scanner input = new Scanner(System.in);
-		for(int i=0; i<9; i++){
+		for(int i=0; i<9; i++){			
+			System.out.print("Row[" + (i+1) +"]: ");
 			String temp = input.next();
-		//	System.out.print("Row[" + (i+1) +"]: ");
 			board[i] = temp.toCharArray();			
 		}		
 		input.close();
