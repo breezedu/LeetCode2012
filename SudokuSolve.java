@@ -79,20 +79,20 @@ public class SudokuSolve {
 		int row = index/9;
 		int col = index%9;
 			
-		for(char letter = '1'; letter <='9'; letter++){
-				
-			if( isValid(letter, row, col, board) ){
-				board[row][col] = letter;				
-					
-				if(permulateFill(emptyCells, board)) return true;
-				board[row][col] = '.';
+		for(char letter = '1'; letter <='9'; letter++){				
+			if( isValid(letter, row, col, board) ){				
+				board[row][col] = letter;					
+				if(permulateFill(emptyCells, board)) return true;				
 			}
-					
+				
 		}//for letter<='9' loop;	
-			
-		emptyCells.push(index);
-		return false;
 		
+		//if none of upper conditions return false, then we have to go back to 'upper' cycle;
+		//recovery board[row][col] back to be '.'; and push index back to stack;
+		board[row][col] = '.';	
+		emptyCells.push(index);
+		
+		return false;		
 	}//end permulateFill() method
 
 	private static boolean isValid(char letter, int row, int col, char[][] board) {
