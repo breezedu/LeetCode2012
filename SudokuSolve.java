@@ -87,7 +87,7 @@ public class SudokuSolve {
 				
 		}//for letter<='9' loop;	
 		
-		//if none of upper conditions return false, then we have to go back to 'upper' cycle;
+		//if none of upper conditions return true, then we have to go back to 'upper' cycle;
 		//recovery board[row][col] back to be '.'; and push index back to stack;
 		board[row][col] = '.';	
 		emptyCells.push(index);
