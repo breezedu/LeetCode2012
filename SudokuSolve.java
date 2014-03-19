@@ -128,15 +128,15 @@ public class SudokuSolve {
 		int col = board[0].length;
 		
 		for(int i=0; i<row; i++){
-			if(i%3==0) System.out.println();
+			if(i%3==0) System.out.println(); 	//print a blank line between every 3 rows;
 			
 			for(int j=0; j<col; j++){
-				if(j%3==0) System.out.print(" ");
+				if(j%3==0) System.out.print(" "); 	//print a " " between every 3 characters;
 				System.out.print(" " + board[i][j]);
 			}
 			
 			System.out.println();
-		}
+		}//end for i<row loop;
 		
 		System.out.println();
 	}//end printMatrix() method;
