@@ -96,6 +96,7 @@ public class WordLadderIIAccepted {
         
         Path begin = new Path(start, 1);
         q.offer(begin);
+        
         while(!q.isEmpty()){
         	Path path = q.poll();
         	if(path.level > nowLevel){
@@ -103,37 +104,48 @@ public class WordLadderIIAccepted {
         		toBeRemove.clear();
         		nowLevel = path.level;
         	}
+        	
         	if(path.level > maxLevel) break;
         	char[] chars = path.word.toCharArray();
+        	
     		for(int i = 0; i < chars.length; i++){
     			for(int j = 97; j <= 122; j++){
     				char odd = chars[i];
+    				
     				if(chars[i] != (char) j){
     					chars[i] = (char) j;
     					String newWord = String.valueOf(chars);
     					if(newWord.equals(end)) maxLevel = path.level;
+    					
     					if(!newWord.equals(start) && (dict.contains(newWord) || newWord.equals(end))){
     						backTraceTable.get(newWord).add(path.word);
     						if(!toBeRemove.contains(newWord)) q.offer(new Path(newWord, path.level + 1));
     						toBeRemove.add(newWord);
     					}
-    				}
+    					
+    				}//end if chars[i]!= char(j) condition; 
+    				
     				chars[i] = odd;
-    			}
-    		}
-        }
+    				
+    			}//end for j<=122 loop;
+    			
+    		}//end for i<chars.length loop;
+    		
+        }//end while 1.isEmpty() loop;
         
-        //System.out.println(backTraceTable);
         
         ArrayList<String> result = new ArrayList<String>();
+        
+        //call getResults() method to backTrace the path(s)
         getResults(end, backTraceTable, result, results, start);
  
         for(int i = 0; i < results.size(); i++){
         	results.get(i).add(start);
         	revert(results.get(i));
         }
+        
         return results;
-    }
+    }//end findLadders() method;
  
     public static void revert(ArrayList<String> result){
     	int begin = 0;
@@ -145,7 +157,7 @@ public class WordLadderIIAccepted {
     		begin++;
     		end--;
     	}
-    }
+    }//end revert() method;
  
     public static void getResults(String word, HashMap<String, ArrayList<String>> backTraceTable,
     		ArrayList<String> result, ArrayList<ArrayList<String>> results, String start){
@@ -153,12 +165,13 @@ public class WordLadderIIAccepted {
     		results.add(new ArrayList<String>(result));
     		return;
     	}
+    	
     	result.add(word);
     	for(String nextWord: backTraceTable.get(word))
     		getResults(nextWord, backTraceTable, result, results, start);
     	result.remove(result.size() - 1);
  
-    }
+    }//end getResults() method;
  
 
 
