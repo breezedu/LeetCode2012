@@ -86,16 +86,23 @@ public class WordLadderIIAccepted {
         if(start.equals(end)) return results;
  
         Queue<Path> q = new LinkedList<Path>();
-        int maxLevel = dict.size() + 2;
-        int nowLevel = 1;
+        int maxLevel = dict.size() + 2; //the worst condition, every word in the set combine the ladder
+        int nowLevel = 1; //the fast condition, no word in the set would be used.
+        
         HashMap<String, ArrayList<String>> backTraceTable = new HashMap<String, ArrayList<String>>();
+        
+        //put every word in the dictionary into a hash, along with an empty arrayList
         for(String word: dict) backTraceTable.put(word, new ArrayList<String>());
+        
+        //also put the start and end into the hashMap;
         backTraceTable.put(start, new ArrayList<String>());
         backTraceTable.put(end, new ArrayList<String>());
+        
+        //declare a toBeRemove hashSet:
         HashSet<String> toBeRemove = new HashSet<String>();
         
         Path begin = new Path(start, 1);
-        q.offer(begin);
+        q.add(begin); //add or offer :)
         
         while(!q.isEmpty()){
         	Path path = q.poll();
@@ -109,11 +116,11 @@ public class WordLadderIIAccepted {
         	char[] chars = path.word.toCharArray();
         	
     		for(int i = 0; i < chars.length; i++){
-    			for(int j = 97; j <= 122; j++){
+    			for(char j = 'a'; j <= 'z'; j++){
     				char odd = chars[i];
     				
-    				if(chars[i] != (char) j){
-    					chars[i] = (char) j;
+    				if(chars[i] != j){
+    					chars[i] = j;
     					String newWord = String.valueOf(chars);
     					if(newWord.equals(end)) maxLevel = path.level;
     					
@@ -147,6 +154,10 @@ public class WordLadderIIAccepted {
         return results;
     }//end findLadders() method;
  
+	/**********
+	 * reverse an arrayList
+	 * @param result
+	 */
     public static void revert(ArrayList<String> result){
     	int begin = 0;
     	int end = result.size() - 1;
@@ -159,22 +170,36 @@ public class WordLadderIIAccepted {
     	}
     }//end revert() method;
  
+    /*************
+     * 
+     * @param word
+     * @param backTraceTable
+     * @param result
+     * @param results
+     * @param start
+     */
     public static void getResults(String word, HashMap<String, ArrayList<String>> backTraceTable,
     		ArrayList<String> result, ArrayList<ArrayList<String>> results, String start){
+    	//kind of dfs
     	if(backTraceTable.get(word).isEmpty() && word.equals(start)){
     		results.add(new ArrayList<String>(result));
     		return;
     	}
     	
     	result.add(word);
+    	
     	for(String nextWord: backTraceTable.get(word))
     		getResults(nextWord, backTraceTable, result, results, start);
+    	
     	result.remove(result.size() - 1);
  
     }//end getResults() method;
- 
-
-
+    
+    
+    /*********
+     * Printout everything arrayList of strings in the Results ArrayList of ArrayList.
+     * @param ladder
+     */
 	private static void printALofAL(ArrayList<ArrayList<String>> ladder) {
 		// TODO printout ALofAL
 		if(ladder == null || ladder.isEmpty()){
