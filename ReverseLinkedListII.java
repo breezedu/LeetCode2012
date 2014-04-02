@@ -60,8 +60,7 @@ public class ReverseLinkedListII {
 	private static ListNode reverseListBetween(ListNode head, int m, int n) {
 		
 		// TODO reverse the list between m and n indices; 
-		if(head==null || head.next==null ||m==n) return head;
-		
+		if(head==null || head.next==null ||m>=n) return head;		
 		
 		ListNode retHead = new ListNode(0);
 		retHead.next = head; 				//the head of 1st list;
@@ -71,34 +70,37 @@ public class ReverseLinkedListII {
 		ListNode oriP = retHead;
 		for(int i=0; i<m-1; i++){
 			oriP = oriP.next;
+			if(oriP==null) return head;
 		}
+		
 		ListNode tempHead = oriP.next;		//the head of 2nd list;
 		
-		ListNode p1 = tempHead;
-		ListNode tempOri = null;
+		ListNode pCurr = tempHead;
+		ListNode tempList2 = null;
 			
-		while(p1.next!=null && count>0){
+		while(pCurr.next!=null && count>0){
 			
-			ListNode p2 = p1.next; //remember the next node of p1;
+			ListNode pNext = pCurr.next; 	//remember the next node of pCurrent;
 			
-			//break p1 and it's following nodes; 
-			//let p1 point to the head of reversed list;			
-			p1.next = tempOri; 			
-			//the let tempOri point to the head of newly built list;
-			tempOri = p1;
+			//break pCurr and it's following nodes; 
+			//right now the reversed List is just a null;
+			//let pCurr point to the head of reversed list: tempList2;			
+			pCurr.next = tempList2; 			
+			//then let tempList2 point to the head node of the reversed 2nd list;
+			tempList2 = pCurr;
 			
-			p1 = p2;
-			p2 = p2.next;
+			pCurr = pNext;
+			pNext = pNext.next;
 			
-			count--;
+			count--; 	//this is the number of nodes left to the 2nd list.
 			
 		}//end while loop, after this loop, p1.next is the head of 3rd list;
 		
-		tempHead.next = p1.next;
-		p1.next = tempOri; //the nodes between indices m and n were reversed;
+		tempHead.next = pCurr.next;
+		pCurr.next = tempList2; //the nodes between indices m and n were reversed;
 		
-		//let the last node in the 1st list point to the head of newly 2nd list;
-		oriP.next = p1;
+		//let the last node in the 1st list point to the head of newly reversed 2nd list;
+		oriP.next = pCurr;
 		
 		return retHead.next;
 	}
