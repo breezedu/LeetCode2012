@@ -20,6 +20,7 @@ public class ReverseLinkedListII {
 		
 		//1st, build a linked list;
 		System.out.println("Please input how many nodes in the list:");
+		System.out.print("total nodes = ");
 		Scanner input = new Scanner(System.in);
 		int num = input.nextInt();
 		
@@ -29,7 +30,9 @@ public class ReverseLinkedListII {
 		printList(Head);
 		
 		System.out.println("Please input the two indices of reverse nodes:");
+		System.out.print(" m = ");
 		int m = input.nextInt();
+		System.out.print(" n = ");
 		int n = input.nextInt();
 		input.close();
 		
@@ -68,15 +71,15 @@ public class ReverseLinkedListII {
 		int count = n-m;
 		
 		ListNode oriP = retHead;
-		for(int i=0; i<m-1; i++){
+		for(int i=1; i<m; i++){
 			oriP = oriP.next;
 			if(oriP==null) return head;
 		}
 		
-		ListNode tempHead = oriP.next;		//the head of 2nd list;
+		ListNode revHead = oriP.next;		//the head of 2nd list;
 		
-		ListNode pCurr = tempHead;
-		ListNode tempList2 = null;
+		ListNode pCurr = revHead; 	//this is the head of the 2nd list;
+		ListNode revList = null;
 			
 		while(pCurr.next!=null && count>0){
 			
@@ -85,25 +88,31 @@ public class ReverseLinkedListII {
 			//break pCurr and it's following nodes; 
 			//right now the reversed List is just a null;
 			//let pCurr point to the head of reversed list: tempList2;			
-			pCurr.next = tempList2; 			
+			pCurr.next = revList; 			
 			//then let tempList2 point to the head node of the reversed 2nd list;
-			tempList2 = pCurr;
+			revList = pCurr;
 			
 			pCurr = pNext;
-			pNext = pNext.next;
+			pNext = pCurr.next;
 			
 			count--; 	//this is the number of nodes left to the 2nd list.
 			
-		}//end while loop, after this loop, p1.next is the head of 3rd list;
+		}//end while loop, after this loop, pCurr.next is the head of 3rd list;
 		
-		tempHead.next = pCurr.next;
-		pCurr.next = tempList2; //the nodes between indices m and n were reversed;
 		
-		//let the last node in the 1st list point to the head of newly reversed 2nd list;
+		//link the reversed list's end to the head of the 3rd list;
+		revHead.next = pCurr.next;
+		
+		//make pCurr the head of the reversed list;
+		//the nodes between indices m and n were reversed;
+		pCurr.next = revList; 
+
+		
+		//link the 1st list's end to the head of reversed list;
 		oriP.next = pCurr;
 		
 		return retHead.next;
-	}
+	}//end of reverseListBetween() method;
 
 	private static void printList(ListNode head) {
 		// TODO printout a linked list
