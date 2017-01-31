@@ -13,7 +13,11 @@ public class MaximumProductSubarray {
 	}
 
 
-	
+	/************
+	 * 
+	 * @param nums
+	 * @return
+	 */
     public static int maxProduct(int[] nums) {
         
         if(nums.length == 0) return 0;
