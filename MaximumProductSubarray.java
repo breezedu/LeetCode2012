@@ -5,7 +5,8 @@ public class MaximumProductSubarray {
 	
 	public static void main(String[] args){
 		
-		int[] nums = {-2, 3, -4};
+	//	int[] nums = {1,2,-1,-2,2,1,-2,1,4,-5,4};
+		int[] nums = {-1,-2,3,-1,-2,1,1};
 		
 		System.out.println("max: " + maxProduct(nums));
 		
@@ -19,58 +20,31 @@ public class MaximumProductSubarray {
 		if(nums.length == 1) return nums[0];
 		
 		int len = nums.length;
-		int[][] matrix = new int[len][len];
+		int max[] = new int[len];
+		int min[] = new int[len];
+		int maxv = max[0] = min[0] = nums[0];
 		
-		//define a negative matrix[][] to record the minimium negative value; 
-		int[][] matrix_negative = new int[len][len];
+		for(int i=1; i<len; i++){
+			
+			if(nums[i] > 0){
+				
+				max[i] = Math.max(nums[i], max[i-1] * nums[i]);
+				min[i] = Math.min(nums[i], min[i-1] * nums[i]);
+				
+			} else {
+				
+				max[i] = Math.max(max[i-1], min[i-1] * nums[i]);
+				min[i] = Math.min(nums[i], max[i-1] * nums[i]);
+				
+			}
+			
+			if(max[i] > maxv) maxv = max[i];
+	    }//end for length < len loop; 	
 		
-		int max = nums[0]; 
-		
-		for(int i=0; i<len; i++){
-		    matrix[i][i] = nums[i];
-		    
-		    if(nums[i] < 0) matrix_negative[i][i] = nums[i];
-		    
-		    if(nums[i] > max) max = nums[i];
-		}
-		
-		
-		
-		for(int i=0; i<len-1; i++){
-		    
-		    for(int j=i+1; j<len; j++){
-		    		if(nums[j] > 0){
-		    			
-		    			matrix[i][j] = nums[j];
-		            
-		    			int newValueP = matrix[i][j-1] * nums[j]; 
-		    			
-		    			if(newValueP > matrix[i][j-1] && newValueP > nums[j])
-		    				matrix[i][j] = newValueP;
-		            
-		    			if(matrix[i][j] > max) max = matrix[i][j];
-		    			
-		    			matrix_negative[i][j] = matrix_negative[i][j-1] * nums[j];
-		    			
-		    		} else if(nums[j] < 0){
-		    			
-		    			int newValueP = matrix_negative[i][j-1] * nums[j];
-		    			if(newValueP > matrix[i][j-1]) matrix[i][j] = newValueP;
-		    			
-		    			int newValueN = matrix[i][j-1] * nums[j];
-		    			if(newValueN < matrix_negative[i][j-1]) matrix_negative[i][j] = newValueN;
-		    			
-		    			if(newValueP > max) max = newValueP;
-		    		}
-
-		        
-		        
-		    }
-		    
-		}
-		
-		return max;
+		return maxv;
 		
     }//end maxProduct()
+
+
     
-}
+}//ee
