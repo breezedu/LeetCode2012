@@ -14,7 +14,7 @@ public class MaximumProductSubarray {
 
 
 	/************
-	 * 
+	 * max products()
 	 * @param nums
 	 * @return
 	 */
