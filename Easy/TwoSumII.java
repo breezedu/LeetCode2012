@@ -34,22 +34,39 @@ public class TwoSumII {
 		 */
 		
 		int target = 85;
-		int[] indices = getIndices(ascArray, target); 
+		int[] indices = twoSum(ascArray, target); 
 
 		
 		/************
 		 * Step Three
 		 */
+		System.out.println("The original array:");
+		printArray(ascArray);
+		
+		System.out.println("The target: " + target);
+		
+		System.out.println("The two indices at which the two elements add up to the target: " );
+		printArray(indices); 
+		
+		
+	} //end main();
+	
+
+	//print out an array;
+	private static void printArray(int[] array) {
+		// TODO Auto-generated method stub
+		
 		System.out.println();
 		
-		for(int i=0; i<indices.length; i++){
-			System.out.print( indices[i] + "\t");
+		for(int i=0; i<array.length; i++){
+			System.out.print( array[i] + "\t");
 		}
 		
 		System.out.println();
 		
+		
 	}
-	
+
 
 
 	/**********
@@ -78,16 +95,24 @@ public class TwoSumII {
 	 * which sum up to a target integer;
 	 * 
 	 */
-	
-	private static int[] getIndices(int[] ascArray, int target) {
-		// TODO Auto-generated method stub
+	public static int[] twoSum(int[] numbers, int target) {
+		
+		//first, get the maxium integer in the array which is less than the target int
+		int pivot = 0;
+		while( numbers[pivot] < target ){
+			pivot ++;
+		}
+		
+		
 		int[] indices = new int[2]; 
 		
 		
 		
+		
+		
 		return indices;
-	}
-	
+        
+    }
 	
 	
 
