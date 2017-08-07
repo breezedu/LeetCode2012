@@ -97,20 +97,39 @@ public class TwoSumII {
 	 */
 	public static int[] twoSum(int[] numbers, int target) {
 		
-		//first, get the maxium integer in the array which is less than the target int
-		int pivot = 0;
-		while( numbers[pivot] < target ){
-			pivot ++;
-		}
-		
-		
-		int[] indices = new int[2]; 
-		
-		
-		
-		
-		
-		return indices;
+	       //first, get the maxium integer in the array which is less than the target int
+			int end = numbers.length - 1;
+			int start = 0; 
+			 
+			int sum = numbers[start] + numbers[end] ;
+			while( start < end){
+	            
+	           if( sum == target) {
+	           
+	                int[] indices = new int[2]; 
+					
+	    		    indices[0] = start + 1;
+		    	    indices[1] = end + 1; 
+					
+			        return indices;
+	                        
+	            }
+				
+				if( sum < target){
+					
+					start++;
+					
+				} else {
+					
+					end --; 
+				}
+				
+				sum = numbers[start] + numbers[end]; 
+	            
+
+			}
+			
+	       return null; 
         
     }
 	
