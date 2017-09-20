@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+
 
 /*******************************
  * 
@@ -12,7 +12,7 @@ public class No204_CountPrimes {
 	
 	public static void main(String[] args){
 		
-		int n = 2;
+		int n = 5;
 		
 		int primes = countPrimes(n);
 		
@@ -24,25 +24,27 @@ public class No204_CountPrimes {
 	
 	private static int countPrimes(int n) {
 		// TODO Auto-generated method stub
+		//initial a boolean array, assuming they are all Non-prime; 
+		boolean[] noPrime = new boolean[n];
+		//System.out.println("n=3 " + noPrime[3]);
 		
-		ArrayList<Integer> counts = new ArrayList<Integer>(); 
-		
+		int count = 0;
+		//as we know, 2 is a prime; so, we start with 2, the boolean value is false, then all numbers 2*x will be no-prime
+		//			so, we assign true to all boolean[2*x], here x could be any number less than n/2 
 		for(int i=2; i<n; i++){
 			
-			int currCount = 0; 
-			for(int j=0; j<counts.size(); j++){
-				if(i%counts.get(j) == 0)
-					currCount++;
-			}
-			
-			if(currCount < 1){
-				counts.add(i);
-				System.out.println("add " + i);
+			if(noPrime[i] == false){
+				count++;
+				
+				for(int j=2; i*j < n; j++){
+					noPrime[i*j] = true; 
+				}
+				
 			}
 			
 		}//end i<n loop; 
 		
-		return counts.size();
+		return count;
 		
 	}//end countPrimes()
 	
