@@ -61,15 +61,13 @@ public class No220_ContainsDuplicateIII_AC {
 		 * @param t
 		 * @return
 		 */
-		public static boolean containsDuplicate(int[] nums, int k, int t) {
-	        
+		public static boolean containsDuplicate(int[] nums, int k, int t) {	        
 
-        	int len = nums.length;
-            if (k < 1 || t < 0 || len < 1) return false;
+			int len = nums.length;
+        	if (k < 1 || t < 0 || len < 1) return false;
 	        
 			TreeSet<Integer> set = new TreeSet<Integer>();
-						
-			//build the initial tree-set, with k elements in it;
+			
 			//build the initial tree-set, with k elements in it;
 			for(int i=0; i<len; i++){
 			
